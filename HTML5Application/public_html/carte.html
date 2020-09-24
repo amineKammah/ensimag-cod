@@ -12,6 +12,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
         <style>
+<<<<<<< HEAD
           html, body {
                 height: 100%;
                 margin: 0;
@@ -20,10 +21,14 @@ and open the template in the editor.
                 width: 1000px;
                 height: 500px;
             }
+=======
+            #map {position: absolute; top: 0; bottom: 0; left:0; right:0;}
+>>>>>>> 325c664353341dfcb3272aca4c48fa7bb94822d9
         </style>
     </head>
     <body>
         <div id="map"></div>
+<<<<<<< HEAD
         <script type="text/javascript" src="js/us-states.js"></script>
         <script type="text/javascript">
             var map = L.map('map').setView([37.8,-96], 4);
@@ -149,6 +154,16 @@ and open the template in the editor.
             };
 
             legend.addTo(map);
+=======
+        <script>
+            var map = L.map('map').setView([0,0], 1);
+            L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=i8upOzPaFmUXM0tH6yA4',
+            {
+                attribution:'<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+                
+            }).addTo(map);
+            var marker = L.marker([51.5,-0.09]).addTo(map);
+>>>>>>> 325c664353341dfcb3272aca4c48fa7bb94822d9
         </script>
         
         
