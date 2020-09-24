@@ -98,7 +98,7 @@ def main() -> None:
     joined_df = PreprocessingUtils.merge_dataframe(df, race_dist_df, on='Etat')
 
     print("Saving to 'data/processed.csv'.")
-    joined_df.to_csv('data/processed.csv')
+    joined_df.to_csv('data/processed.csv', index=False)
 
     print("Done.")
 
