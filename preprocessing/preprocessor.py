@@ -13,14 +13,19 @@ def _preprocess_race_distribution(race_dist_df: pd.DataFrame) -> pd.DataFrame:
     race_dist_df = PreprocessingUtils.impute_missing_values(race_dist_df)
 
     minorities = [
-        'Location', 'Black', 'American Indian/Alaska Native',
-       'Native Hawaiian/Other Pacific Islander', 'Two Or More Races'
+        'Black', 'American Indian/Alaska Native',
+        'Native Hawaiian/Other Pacific Islander', 'Two Or More Races'
     ]
     race_dist_df = PreprocessingUtils.map_values(race_dist_df, {'<.01': 0}, minorities)
+    race_dist_df[minorities] = race_dist_df[minorities].astype(float)
+    race_dist_df['Others'] = (
+            race_dist_df['Native Hawaiian/Other Pacific Islander'] + race_dist_df['Two Or More Races']
+    )
+    race_dist_df = race_dist_df.drop(['Native Hawaiian/Other Pacific Islander', 'Two Or More Races'], axis=1)
 
     columns_name_translation = {"Location": "Etat", "White": "Blanc", "Black": "Noir", "Hispanic": "Hispanique",
      "American Indian/Alaska Native": "Natif" , "Asian": "Asiatique",
-     "Native Hawaiian/Other Pacific Islander": "Autre", "Two Or More Races": "Autre"}
+     "Others": "Autre"}
 
     race_dist_df = PreprocessingUtils.set_columns_names(race_dist_df, columns_name_translation)
 
@@ -59,8 +64,11 @@ def _preprocess_shootings_data(raw_df: pd.DataFrame) -> pd.DataFrame:
     }
     df = PreprocessingUtils.map_values(df, arms_cat_column_translation, ['arms_category'])
 
+    threat_lvl_translation = {"attack": "Attaque", "undetermined": "Indetermine", "other": "Autre"}
+    df = PreprocessingUtils.map_values(df, threat_lvl_translation, ['threat_level'])
+
     columns_name_translation = {
-        "id": "id", "arms_category": "Cathegorie arme", "race": "Ethnie", "gender": "Sexe",
+        "id": "id", "arms_category": "Categorie arme", "race": "Ethnie", "gender": "Sexe",
         "flee": "Fuite", "state": "Etat", "signs_of_mental_illness" : "Signes de maladie mentale",
         "age": "Age", "threat_level" : "Niveau de menace", "body_camera": "Camera corporelle",
         "month": "Mois", "year": "Year", "day_of_month": "Jour du mois"
@@ -75,11 +83,13 @@ def main() -> None:
     """
     Reads raw data and processes it and saves the result in a convenient format.
     """
+    print("Loading and preprocessing 'distributionRacialeUsa.csv'.")
     race_distribution_path = "data/distributionRacialeUsa.csv"
     race_dist_df = pd.read_csv(race_distribution_path)
 
     race_dist_df = _preprocess_race_distribution(race_dist_df)
 
+    print("Loading and preprocessing 'shootingsUsa.csv'.")
     raw_data_path = "data/shootingsUsa.csv"
     raw_df = pd.read_csv(raw_data_path)
 
@@ -87,7 +97,10 @@ def main() -> None:
 
     joined_df = PreprocessingUtils.merge_dataframe(df, race_dist_df, on='Etat')
 
+    print("Saving to 'data/processed.csv'.")
     joined_df.to_csv('data/processed.csv')
+
+    print("Done.")
 
 
 if __name__ == '__main__':
