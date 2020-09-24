@@ -1,6 +1,6 @@
 import pandas as pd
 
-from Preprocessing_utils import PreprocessingUtils
+from preprocessing_utils import PreprocessingUtils
 
 
 def _preprocess_race_distribution(race_dist_df: pd.DataFrame) -> pd.DataFrame:
@@ -9,10 +9,20 @@ def _preprocess_race_distribution(race_dist_df: pd.DataFrame) -> pd.DataFrame:
     - Replaces missing values with 0
     - Replaces low frequency values (<0.1) with 0
     """
+    race_dist_df = race_dist_df.drop('Total', axis=1)
     race_dist_df = PreprocessingUtils.impute_missing_values(race_dist_df)
 
-    columns = race_dist_df.columns.tolist()
-    race_dist_df = PreprocessingUtils.map_values(race_dist_df, {'<.01': 0}, columns)
+    minorities = [
+        'Location', 'Black', 'American Indian/Alaska Native',
+       'Native Hawaiian/Other Pacific Islander', 'Two Or More Races'
+    ]
+    race_dist_df = PreprocessingUtils.map_values(race_dist_df, {'<.01': 0}, minorities)
+
+    columns_name_translation = {"Location": "Etat", "White": "Blanc", "Black": "Noir", "Hispanic": "Hispanique",
+     "American Indian/Alaska Native": "Natif" , "Asian": "Asiatique",
+     "Native Hawaiian/Other Pacific Islander": "Autre", "Two Or More Races": "Autre"}
+
+    race_dist_df = PreprocessingUtils.set_columns_names(race_dist_df, columns_name_translation)
 
     return race_dist_df
 
@@ -28,6 +38,9 @@ def _preprocess_shootings_data(raw_df: pd.DataFrame) -> pd.DataFrame:
     df = PreprocessingUtils.parse_date(raw_df)
     df = PreprocessingUtils.remove_high_dim_columns(df)
 
+    # Manner of death does not provide useful information
+    df = df.drop('manner_of_death', axis=1)
+
     race_column_translation = {
         "White": "Blanc", "Black": "Noir", "Hispanic": "Hispanique", "Asian": "Asiatique",
         "Native": "Natif", "Other": "Autre",
@@ -39,7 +52,6 @@ def _preprocess_shootings_data(raw_df: pd.DataFrame) -> pd.DataFrame:
     }
     df = PreprocessingUtils.map_values(df, flee_column_translation, ['flee'])
 
-    # TODO: Check this
     arms_cat_column_translation = {
         "Guns": "Arme à feu", "Unarmed": "Non Armé", "Sharp objects": "Objets tranchants", "Unknown": "Autre",
         "Other unusual objects": "Autre", "Blunt instruments": "Autre", "Vehicles": "Autre", "Multiple": "Autre",
@@ -48,8 +60,12 @@ def _preprocess_shootings_data(raw_df: pd.DataFrame) -> pd.DataFrame:
     df = PreprocessingUtils.map_values(df, arms_cat_column_translation, ['arms_category'])
 
     columns_name_translation = {
-        "arms_category": "Cathegorie_arme", "race": "Ethnie", "gender": "Sexe", "flee": "Fuite", "state": "Etat",
+        "id": "id", "arms_category": "Cathegorie arme", "race": "Ethnie", "gender": "Sexe",
+        "flee": "Fuite", "state": "Etat", "signs_of_mental_illness" : "Signes de maladie mentale",
+        "age": "Age", "threat_level" : "Niveau de menace", "body_camera": "Camera corporelle",
+        "month": "Mois", "year": "Year", "day_of_month": "Jour du mois"
     }
+
     df = PreprocessingUtils.set_columns_names(df, columns_name_translation)
 
     return df
@@ -59,16 +75,20 @@ def main() -> None:
     """
     Reads raw data and processes it and saves the result in a convenient format.
     """
-    race_distribution_path = "../data/race_distribution_data.csv"
+    race_distribution_path = "data/distributionRacialeUsa.csv"
     race_dist_df = pd.read_csv(race_distribution_path)
 
     race_dist_df = _preprocess_race_distribution(race_dist_df)
 
-    raw_data_path = "../data/raw_shootings_data.csv"
+    raw_data_path = "data/shootingsUsa.csv"
     raw_df = pd.read_csv(raw_data_path)
 
     df = _preprocess_shootings_data(raw_df)
 
-    joined_df = PreprocessingUtils.merge_dataframe(df, race_dist_df, left_on='Etat', right_on='Location')
+    joined_df = PreprocessingUtils.merge_dataframe(df, race_dist_df, on='Etat')
 
-    joined_df.to_csv('../data/processed.csv')
+    joined_df.to_csv('data/processed.csv')
+
+
+if __name__ == '__main__':
+    main()

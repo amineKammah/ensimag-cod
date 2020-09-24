@@ -6,13 +6,13 @@ import pandas as pd
 class PreprocessingUtils:
     @staticmethod
     def merge_dataframe(
-        df1: pd.DataFrame, df2: pd.DataFrame, left_on: str, right_on: str
+        df1: pd.DataFrame, df2: pd.DataFrame, on: str
     ) -> pd.DataFrame:
         """
         Left joins 2 dataframes on specific columns.
         """
 
-        merged_df = df1.merge(df2, how="left", left_on=left_on, right_on=right_on)
+        merged_df = df1.merge(df2, how="left", on=on)
         return merged_df
 
     @staticmethod
@@ -31,7 +31,7 @@ class PreprocessingUtils:
 
     @staticmethod
     def remove_high_dim_columns(
-        df: pd.DataFrame, threshold: int = 100, to_keep: List[str] = ["id"]
+        df: pd.DataFrame, threshold: int = 80, to_keep: List[str] = ["id"]
     ) -> pd.DataFrame:
         """
         Removes columns with a dimension higher than the specified threshold.
@@ -44,7 +44,7 @@ class PreprocessingUtils:
             for column in df.columns
             if (df[column].nunique() > threshold) and (column not in to_keep)
         ]
-        df.drop(to_drop, axis=1)
+        df = df.drop(to_drop, axis=1)
 
         return df
 
