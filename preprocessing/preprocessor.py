@@ -47,7 +47,7 @@ def _preprocess_shootings_data(raw_df: pd.DataFrame) -> pd.DataFrame:
     df = df.drop('manner_of_death', axis=1)
 
     df.age = df.age.astype(int)
-    
+
     race_column_translation = {
         "White": "Blanc", "Black": "Noir", "Hispanic": "Hispanique", "Asian": "Asiatique",
         "Native": "Natif", "Other": "Autre",
@@ -60,7 +60,7 @@ def _preprocess_shootings_data(raw_df: pd.DataFrame) -> pd.DataFrame:
     df = PreprocessingUtils.map_values(df, flee_column_translation, ['flee'])
 
     arms_cat_column_translation = {
-        "Guns": "Arme a feu", "Unarmed": "Non Armé", "Sharp objects": "Objets tranchants", "Unknown": "Autre",
+        "Guns": "Arme a feu", "Unarmed": "Non Arme", "Sharp objects": "Objet tranchant", "Unknown": "Autre",
         "Other unusual objects": "Autre", "Blunt instruments": "Autre", "Vehicles": "Autre", "Multiple": "Autre",
         "Piercing objects": "Autre", "Electrical devices": "Autre", "Explosives": "Autre", "Hand tools": "Autre",
     }
