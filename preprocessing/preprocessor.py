@@ -6,8 +6,11 @@ from preprocessing_utils import PreprocessingUtils
 def _preprocess_race_distribution(race_dist_df: pd.DataFrame) -> pd.DataFrame:
     """
     Preprocesses the race distribution data:
+    - Drops useless columns such as 'Total'
     - Replaces missing values with 0
     - Replaces low frequency values (<0.1) with 0
+    - Combines 'Native Hawaiian/Other Pacific Islander' and 'Two Or More Races' into one column 'Other'
+    - Translate file from French to English
     """
     race_dist_df = race_dist_df.drop('Total', axis=1)
     race_dist_df = PreprocessingUtils.impute_missing_values(race_dist_df)
