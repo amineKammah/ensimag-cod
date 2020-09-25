@@ -2,11 +2,11 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
-    path: './build',
+    path: '/home/amine/ensimag-projects/ensimag-cod/app/build',
     filename: 'bundle.js'
   },
    module: {
-    loaders: [{ 
+    rules: [{ 
       test: /\.js$/, 
       exclude: /node_modules/, 
       loader: "babel-loader" 
