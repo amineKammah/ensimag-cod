@@ -76,7 +76,7 @@ def _preprocess_shootings_data(raw_df: pd.DataFrame) -> pd.DataFrame:
         "id": "id", "arms_category": "Categorie arme", "race": "Ethnie", "gender": "Sexe",
         "flee": "Fuite", "state": "Etat", "signs_of_mental_illness" : "Signes de maladie mentale",
         "age": "Age", "threat_level" : "Niveau de menace", "body_camera": "Camera corporelle",
-        "month": "Mois", "year": "Year", "day_of_month": "Jour du mois"
+        "month": "Mois", "year": "Annee", "day_of_month": "Jour du mois"
     }
 
     df = PreprocessingUtils.set_columns_names(df, columns_name_translation)
@@ -88,22 +88,22 @@ def main() -> None:
     """
     Reads raw data and processes it and saves the result in a convenient format.
     """
-    print("Loading and preprocessing 'distributionRacialeUsa.csv'.")
-    race_distribution_path = "data/distributionRacialeUsa.csv"
+    print("Loading and preprocessing 'race_distribution_data.csv'.")
+    race_distribution_path = "data/race_distribution_data.csv"
     race_dist_df = pd.read_csv(race_distribution_path)
 
     race_dist_df = _preprocess_race_distribution(race_dist_df)
 
-    print("Loading and preprocessing 'shootingsUsa.csv'.")
-    raw_data_path = "data/shootingsUsa.csv"
+    print("Loading and preprocessing 'raw_shooting_data.csv'.")
+    raw_data_path = "data/raw_shooting_data.csv"
     raw_df = pd.read_csv(raw_data_path)
 
     df = _preprocess_shootings_data(raw_df)
 
     joined_df = PreprocessingUtils.merge_dataframe(df, race_dist_df, on='Etat')
 
-    print("Saving to 'data/processed.csv'.")
-    joined_df.to_csv('data/processed.csv', index=False)
+    print("Saving to 'data/preprocessed_dataset.json'.")
+    joined_df.to_json('data/preprocessed_dataset.json', orient='records')
 
     print("Done.")
 
