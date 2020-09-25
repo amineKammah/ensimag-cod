@@ -1,10 +1,10 @@
 // set the dimensions and margins of the graph
 var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 460 - margin.left - margin.right,
+    width = 860 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
+var svg = d3.select("#animatedLine")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -42,7 +42,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
     .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
 
   // Draw the line
-  svg.selectAll(".line")
+  var linePaths = svg.selectAll(".line")
       .data(sumstat)
       .enter()
       .append("path")
@@ -54,6 +54,16 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
             .x(function(d) { return x(d.year); })
             .y(function(d) { return y(+d.n); })
             (d.values)
-        })
+        });
+
+
+    var linePathLength = linePaths.node().getTotalLength() * 2; // LIGNE 20
+    linePaths
+        .attr("stroke-dasharray", linePathLength)
+        .attr("stroke-dashoffset", linePathLength)
+        .transition()
+            .duration(10000)
+            .ease(d3.easeLinear)
+            .attr("stroke-dashoffset", 0);
 
 })
