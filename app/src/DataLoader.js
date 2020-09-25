@@ -1,4 +1,6 @@
-import DataFrame from 'dataframe-js';
+import * as d3 from 'd3';
+import "core-js/stable"
+import "regenerator-runtime/runtime"
 
 export default class {
   
@@ -8,13 +10,15 @@ export default class {
   }
   
   loadData() {
-      DataFrame.fromCSV(this.dataPath).then(df => this.data = df);
+//      DataFrame.fromCSV(this.dataPath).then(df => this.data = df);
+       return d3.csv(this.dataPath);
   }
   
-  render() {
-    this.loadData()
+  async render() {
+    this.data = await this.loadData();
     // define html 
-    let content = this.data.dim();
+    let content = this.data;
+    console.log(content);
 
     rootElement.innerHTML = content;
   }
