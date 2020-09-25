@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "bootstrap": "^4.5.2",
+    "chart.js": "^2.9.3",
     "d3": "^6.2.0",
     "dataframe-js": "^1.4.3",
     "jquery": "^3.5.1"
