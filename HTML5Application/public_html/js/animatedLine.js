@@ -55,8 +55,8 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
             .y(function(d) { return y(+d.n); })
             (d.values)
         });
-        
-  
+
+
     var linePathLength = linePaths.node().getTotalLength() * 2; // LIGNE 20
     linePaths
         .attr("stroke-dasharray", linePathLength)
@@ -65,5 +65,5 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
             .duration(10000)
             .ease(d3.easeLinear)
             .attr("stroke-dashoffset", 0);
-  
+
 })
