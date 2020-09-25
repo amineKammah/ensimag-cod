@@ -1,7 +1,9 @@
-import DataLoader from './DataLoader';
-import "core-js/stable"
-import "regenerator-runtime/runtime"
+//import DataLoader from './DataLoader';
+import ChartPlotter from './ChartPlotter';
 
-const rootElement = document.getElementById('rootElement');
-var conv = new DataLoader(rootElement, '../../data/processed.csv');
-conv.render();
+const rootElement = document.getElementById('myChart');
+
+const chart = new ChartPlotter();
+
+chart.render(rootElement);
+//chart.perRaceDeathsDoughnut(rootElement); 
