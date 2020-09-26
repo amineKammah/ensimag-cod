@@ -61,9 +61,9 @@ function getStateRaceShootings(stateName) {
 }
 function displayGraph(props) {
     var ctx = document.getElementById('myDoughnutChart');
-    // TODO: Change 'CA' to stateName
 
-    const [labels, data] = getStateRaceShootings('CA');
+    const stateName = props.name
+    const [labels, data] = getStateRaceShootings(stateName);
     var myDoughnutChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
