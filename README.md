@@ -6,8 +6,8 @@
 
 ### To run the project:
 - Make sure the preprocessing is done (`data/preprocessed_dataset.json` is present).
-- Install parcel globally: `npm install -g parcel-bundler`.
 - Browse to HTML5Application: `cd HTML5Application`.
+- Install parcel globally: `sudo npm install -g parcel-bundler`.
 - Install dependencies using npm: `npm install`.
 - Run `npm run dev`.
 
