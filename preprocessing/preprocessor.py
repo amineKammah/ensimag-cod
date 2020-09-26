@@ -26,9 +26,10 @@ def _preprocess_race_distribution(race_dist_df: pd.DataFrame) -> pd.DataFrame:
     )
     race_dist_df = race_dist_df.drop(['Native Hawaiian/Other Pacific Islander', 'Two Or More Races'], axis=1)
 
-    columns_name_translation = {"Location": "Etat", "White": "Blanc", "Black": "Noir", "Hispanic": "Hispanique",
-     "American Indian/Alaska Native": "Natif" , "Asian": "Asiatique",
-     "Others": "Autre"}
+    columns_name_translation = {
+        "Location": "Code Etat", "State": "Etat", "White": "Blanc", "Black": "Noir", "Hispanic": "Hispanique",
+        "American Indian/Alaska Native": "Natif" , "Asian": "Asiatique", "Others": "Autre"
+    }
 
     race_dist_df = PreprocessingUtils.set_columns_names(race_dist_df, columns_name_translation)
 
@@ -74,7 +75,7 @@ def _preprocess_shootings_data(raw_df: pd.DataFrame) -> pd.DataFrame:
 
     columns_name_translation = {
         "id": "id", "arms_category": "Categorie arme", "race": "Ethnie", "gender": "Sexe",
-        "flee": "Fuite", "state": "Etat", "signs_of_mental_illness" : "Signes de maladie mentale",
+        "flee": "Fuite", "state": "Code Etat", "signs_of_mental_illness" : "Signes de maladie mentale",
         "age": "Age", "threat_level" : "Niveau de menace", "body_camera": "Camera corporelle",
         "month": "Mois", "year": "Annee", "day_of_month": "Jour du mois"
     }
@@ -100,7 +101,7 @@ def main() -> None:
 
     df = _preprocess_shootings_data(raw_df)
 
-    joined_df = PreprocessingUtils.merge_dataframe(df, race_dist_df, on='Etat')
+    joined_df = PreprocessingUtils.merge_dataframe(df, race_dist_df, on='Code Etat')
 
     print("Saving to 'data/preprocessed_dataset.json'.")
     joined_df.to_json('data/preprocessed_dataset.json', orient='records')
