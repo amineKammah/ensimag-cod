@@ -23,9 +23,12 @@ info.onAdd = function(map){
 };
 
 info.update = function (props){
+    // ici je veux récuperer le nombre du mort dans cette état
+    const name = (props ? props.name : "Texas");
+    const stateShootingsDf = df.filter(row => row.get('Etat') == name);
     this._div.innerHTML = '<h4> Le nombre du mort </h4>'
-    + (props ? '<b>' + props.name + '</b><br />' + props.density
-    + 'morts' : 'survoler sur un état');
+    + (props ? '<b>' + props.name + '</b><br />' + stateShootingsDf.dim()[0]
+    + ' morts' : 'survoler sur un état');
 };
 
 info.addTo(map);
@@ -44,13 +47,21 @@ function getColor(d){
 }
 
 function style(feature){
+    
+    
+    var nombre = 0;
+    if (feature.properties){
+        const name = feature.properties.name;
+        const stateShootingsDf = df.filter(row => row.get('Etat') == name);
+        nombre = stateShootingsDf.dim()[0];
+    }
     return {
         weight: 2,
         opacity: 1,
         color: 'white',
         dashArray: '3',
         fillOpacity: 0.7,
-        fillColor: getColor(feature.properties.density)
+        fillColor: getColor(nombre)
     };
 }
 
@@ -129,8 +140,9 @@ function highlightFeature(e) {
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
     layer.bringToFront();
     }
-
     info.update(layer.feature.properties);
+    
+    
     
 }
 
