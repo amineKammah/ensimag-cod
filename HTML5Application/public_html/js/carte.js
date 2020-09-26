@@ -10,6 +10,8 @@ L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=i8upOzPaFmU
     zoomOffset: -1
 }).addTo(map);
 
+
+
 // Control
 var info = L.control();
 
@@ -61,7 +63,9 @@ function getStateRaceShootings(stateName) {
 }
 function displayGraph(props) {
     var ctx = document.getElementById('myDoughnutChart');
-
+    if (ctx != "") {
+        document.getElementById('myDoughnutChart').innerHTML = "";
+    }
     const stateName = props.name
     const [labels, data] = getStateRaceShootings(stateName);
     var myDoughnutChart = new Chart(ctx, {
@@ -70,7 +74,7 @@ function displayGraph(props) {
                 datasets: [{
                     data: data,
                     // TODO: Create background colors
-                    // backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"]
+                    backgroundColor: ["#5b2c6f ", "#d35400","#5499c7 ", " #48c9b0 ", "#2e4053", "#f4d03f "]
                 }],
 
                 labels: labels
@@ -78,29 +82,56 @@ function displayGraph(props) {
         options: {
             title: {
                 display : true,
-                text: (props ? props.name :'survoler sur un état')
+                text: stateName
             }
         }
     });
 }
+// affichage par défaut de l'état texas
+ function byDefault(){
+     var ctx = document.getElementById('myDoughnutChart');
+    if (ctx != "") {
+        document.getElementById('myDoughnutChart').innerHTML = "";
+    }
+    const stateName = "Texas"
+    const [labels, data] = getStateRaceShootings(stateName);
+    var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+                datasets: [{
+                    data: data,
+                    // TODO: Create background colors
+                    backgroundColor: ["#5b2c6f ", "#d35400","#5499c7 ", " #48c9b0 ", "#2e4053", "#f4d03f "]
+                }],
 
+                labels: labels
+            },
+        options: {
+            title: {
+                display : true,
+                text: stateName
+            }
+        }
+    });
+ }
+    byDefault();
 // event listener for layer mouseover event
 function highlightFeature(e) {
-var layer = e.target;
+    var layer = e.target;
 
-layer.setStyle({
-weight: 5,
-color: '#666',
-dashArray: '',
-fillOpacity: 0.7
-});
+    layer.setStyle({
+    weight: 5,
+    color: '#666',
+    dashArray: '',
+    fillOpacity: 0.7
+    });
 
-if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-layer.bringToFront();
-}
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+    layer.bringToFront();
+    }
 
-info.update(layer.feature.properties);
-    displayGraph(layer.feature.properties);
+    info.update(layer.feature.properties);
+    
 }
 
 var geojson;
@@ -111,7 +142,9 @@ function resetHighlight(e) {
 }
 
 function zoomToFeature(e) {
-        map.fitBounds(e.target.getBounds());
+        var layer = e.target;
+        //map.fitBounds(e.target.getBounds());
+        displayGraph(layer.feature.properties);
 }
 
 function onEachFeature(feature, layer) {
