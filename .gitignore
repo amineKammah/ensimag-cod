@@ -1,4 +1,8 @@
 /HTML5Application/nbproject/private/
-/app/node_modules
+/HTML5Application/node_modules/
+/HTML5Application/dist/
+/HTML5Application/.cache/
+
+/app
 /app/build/bundle.js
 /app/nbproject/private/
