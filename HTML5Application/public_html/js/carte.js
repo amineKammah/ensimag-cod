@@ -102,13 +102,23 @@ function displayRaceRepartition(stateName) {
   //check
   if (document.getElementById("ToutArme").checked === true) {
           //exemple//
-          var armed = 0;
+          armed = 0;
       } else if(document.getElementById("Arme").checked === true){
-          var armed = 1;
+          armed = 1;
 
       } else if (document.getElementById("nonArme").checked === true){
 
-          var armed = 2;
+          armed = 2;
+      };
+    if (document.getElementById("Toutage").checked === true) {
+          //exemple//
+          aage = 0;
+      } else if(document.getElementById("Mineur").checked === true){
+          age = 1;
+
+      } else if (document.getElementById("Majeur").checked === true){
+
+          age = 2;
       };
 
     var ctx = document.getElementById('raceRepartitionChart');
