@@ -1,4 +1,5 @@
-import df from './dataLoader';
+
+import { shootings_df, race_df} from './dataLoader';
 
 var margin = { top: 80, right: 80, bottom: 80, left: 80 },
   width = 960 - margin.left - margin.right,
@@ -27,9 +28,9 @@ var line = d3.line()
 
 //data = d3.csvParse(d3.select("pre#data").text());
 
-const races = df.unique('Ethnie').toArray().flat();
+const races = shootings_df.unique('Ethnie').toArray().flat();
 
-let selectDf = df.select('Annee', 'Mois', 'Ethnie');
+let selectDf = shootings_df.select('Annee', 'Mois', 'Ethnie');
 selectDf = selectDf.cast('Annee', String);
 selectDf = selectDf.cast('Mois', String);
 selectDf = selectDf.withColumn('Date', row => new Date(row.get('Mois') + "/01/" + row.get("Annee")));
@@ -129,4 +130,3 @@ d3.select("#show_guideline").on("change", function (e) {
   guideline.attr('stroke-width', this.checked ? 1 : 0);
   curtain.attr("opacity", this.checked ? 0.75 : 1);
 })
-
