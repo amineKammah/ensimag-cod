@@ -110,3 +110,10 @@ path.area {
   margin-right: 100px;
   float: right;
 }
+
+/* barchart */
+#barChart {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}

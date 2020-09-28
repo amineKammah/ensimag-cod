@@ -33,7 +33,7 @@ info.update = function (props) {
     const name = (props ? props.name : "Texas");
 
     const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == name);
-    const numberOfShootings = stateShootingsDf.dim()[0]
+    const numberOfShootings = stateShootingsDf.dim()[0];
 
     this._div.innerHTML = '<h4> Le nombre du mort </h4>'
         + (props ? '<b>' + name + '</b><br />' + numberOfShootings
