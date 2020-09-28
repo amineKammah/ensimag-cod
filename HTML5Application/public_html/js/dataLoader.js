@@ -2,7 +2,11 @@
 import DataFrame from 'dataframe-js'
 import { readFileSync } from 'fs';
 
-const jsonData = readFileSync('../data/preprocessed_dataset.json', 'utf8');
-const data = JSON.parse(jsonData);
-const df = new DataFrame(data)
-export default df;
+var jsonData = readFileSync('../data/race_data.json', 'utf8');
+var data = JSON.parse(jsonData);
+const race_df = new DataFrame(data)
+
+jsonData = readFileSync('../data/shootings_data.json', 'utf8');
+data = JSON.parse(jsonData);
+const shootings_df = new DataFrame(data)
+export { shootings_df, race_df };
