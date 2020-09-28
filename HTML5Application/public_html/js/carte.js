@@ -1,5 +1,10 @@
-import df from './dataLoader';
-import statesData from './us-states';
+// import df from './dataLoader';
+// import statesData from './us-states';
+
+var data = JSON.parse(preprocessed_dataset);
+
+console.log(data);
+console.log(data[0].id);
 
 var map = L.map('map').setView([37.8,-96], 4);
 L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=i8upOzPaFmUXM0tH6yA4',
@@ -24,10 +29,14 @@ info.onAdd = function(map){
 
 info.update = function (props){
     // ici je veux récuperer le nombre du mort dans cette état
-    const name = (props ? props.name : "Texas");
-    const stateShootingsDf = df.filter(row => row.get('Etat') == name);
+    var name = (props ? props.name : "Texas");
+    var stateShootingsDf = data.filter(function(p) {
+        return p.Etat == name;
+    });
+    console.log(stateShootingsDf)
+//    var stateShootingsDf = df.filter(row => row.get('Etat') == name);
     this._div.innerHTML = '<h4> Le nombre du mort </h4>'
-    + (props ? '<b>' + props.name + '</b><br />' + stateShootingsDf.dim()[0]
+    + (props ? '<b>' + props.name + '</b><br />' + stateShootingsDf.length
     + ' morts' : 'survoler sur un état');
 };
 

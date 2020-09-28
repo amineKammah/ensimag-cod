@@ -6,3 +6,5 @@
 /app
 /app/build/bundle.js
 /app/nbproject/private/
+
+preprocessing/.Rhistory
