@@ -79,15 +79,15 @@ function getStateRaceShootings(stateName, armed) {
     var stateShootingsDf;
     switch (age) {
         case 1:
-            stateShootingsDf = df.filter(row => row.get('Etat') == stateName && row.get('Age') <= 18);
+            stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName && row.get('Age') <= 18);
             console.log('mineur')
             break;
         case 2:
-            stateShootingsDf = df.filter(row => row.get('Etat') == stateName && row.get('Age') >= 19);
+            stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName && row.get('Age') >= 19);
             console.log('majeur')
             break;
         default:
-            stateShootingsDf = df.filter(row => row.get('Etat') == stateName);
+            stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
             console.log('all pour age')
     }
     switch (armed) {
@@ -102,11 +102,16 @@ function getStateRaceShootings(stateName, armed) {
         default:
             console.log('all arme')
     }
+//    console.log(race_df.toCollection())
     const perRaceShootings = stateShootingsDf.groupBy('Ethnie').aggregate(group => group.count()).rename('aggregation', 'shootingsCount');
     const labels = perRaceShootings.select('Ethnie'), data = perRaceShootings.select('shootingsCount');
 
 
     return [labels.toArray().flat(), data.toArray().flat()]
+}
+
+function getStateRaceRatio(stateName, Ethnie) {
+    return race_df.filter(row => row.get('Etat') == stateName).select(Ethnie)
 }
 
 function getBackgrounColors(racesList) {
