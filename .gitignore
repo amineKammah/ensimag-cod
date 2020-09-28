@@ -1,10 +1,5 @@
-/HTML5Application/nbproject/private/
-/HTML5Application/node_modules/
-/HTML5Application/dist/
-/HTML5Application/.cache/
-
-/app
-/app/build/bundle.js
-/app/nbproject/private/
+/webapp/node_modules/
+/webapp/dist/
+/webapp/.cache/
 
 preprocessing/.Rhistory

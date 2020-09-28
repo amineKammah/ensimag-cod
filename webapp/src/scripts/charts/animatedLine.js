@@ -1,32 +1,9 @@
 
-import { shootings_df, race_df } from './dataLoader';
+import dataProcessingUtils from '../dataTreatment/dataProcessingUtils';
 
 function init() {
   const button = document.getElementById("resetButton");
   button.addEventListener('click', e => drawLines())
-}
-
-function getPerRaceData() {
-  const races = shootings_df.unique('Ethnie').toArray().flat();
-
-  let selectDf = shootings_df.select('Annee', 'Mois', 'Ethnie');
-  selectDf = selectDf.cast('Annee', String);
-  selectDf = selectDf.cast('Mois', String);
-  selectDf = selectDf.withColumn('Date', row => new Date(row.get('Mois') + "/01/" + row.get("Annee")));
-  selectDf = selectDf.groupBy('Date', 'Ethnie').aggregate(group => group.count()).rename('aggregation', 'groupCount')
-
-  const USracePct = race_df.filter(row => row.get('Code Etat') == 'US').toCollection()[0];
-
-  // Divide by race percentage in the US
-  selectDf = selectDf.map(row => row.set('groupCount', row.get('groupCount') / USracePct[row.get('Ethnie')]))
-  const maxShootings = selectDf.stat.max('groupCount');
-
-  const perRaceData = []
-  for (const race of races) {
-    perRaceData.push(selectDf.filter(row => row.get("Ethnie") == race).toCollection());
-  }
-
-  return [perRaceData, maxShootings]
 }
 
 function drawLines() {
@@ -54,7 +31,7 @@ function drawLines() {
     .y(function (d) { return y(d.groupCount); });
 
 
-  const [perRaceData, maxShootings] = getPerRaceData();
+  const [perRaceData, maxShootings] = dataProcessingUtils.PrepAnimatedLinesData();
   const labels = [];
   perRaceData.forEach(element => {
     labels.push(element[0]['Ethnie']);

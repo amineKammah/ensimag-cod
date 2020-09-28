@@ -1,5 +1,5 @@
-import { shootings_df, race_df} from './dataLoader';
-import statesData from './us-states';
+import dataProcessingUtils from '../dataTreatment/dataProcessingUtils';
+import statesData from '../dataTreatment/us-states';
 
 var map = L.map('map').setView([37.8, -96], 4);
 L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=i8upOzPaFmUXM0tH6yA4',
@@ -9,8 +9,6 @@ L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=i8upOzPaFmU
         tileSize: 512,
         zoomOffset: -1
     }).addTo(map);
-
-
 
 // initialisation des variable armed and age
 var armed = 0;
@@ -30,10 +28,10 @@ info.onAdd = function (map) {
 
 info.update = function (props) {
     // ici je veux récuperer le nombre du mort dans cette état
-    const name = (props ? props.name : "Texas");
+    const stateName = (props ? props.name : "Texas");
 
-    const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == name);
-    const numberOfShootings = stateShootingsDf.dim()[0]
+    
+    const numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName)
 
     this._div.innerHTML = '<h4> Le nombre du mort </h4>'
         + (props ? '<b>' + name + '</b><br />' + numberOfShootings
@@ -58,11 +56,10 @@ function getColor(d) {
 function style(feature) {
 
 
-    var nombre = 0;
+    var numberOfShootings = 0;
     if (feature.properties) {
-        const name = feature.properties.name;
-        const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == name);
-        nombre = stateShootingsDf.dim()[0];
+        const stateName = feature.properties.name;
+        numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName);
     }
     return {
         weight: 2,
@@ -70,17 +67,8 @@ function style(feature) {
         color: 'white',
         dashArray: '3',
         fillOpacity: 0.7,
-        fillColor: getColor(nombre)
+        fillColor: getColor(numberOfShootings)
     };
-}
-
-// plot tha bar
-function getStateRaceShootings(stateName) {
-    const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
-    const perRaceShootings = stateShootingsDf.groupBy('Ethnie').aggregate(group => group.count()).rename('aggregation', 'shootingsCount');
-    const labels = perRaceShootings.select('Ethnie'), data = perRaceShootings.select('shootingsCount');
-
-    return [labels.toArray().flat(), data.toArray().flat()]
 }
 
 function getBackgrounColors(racesList) {
@@ -126,7 +114,7 @@ function displayRaceRepartition(stateName) {
         document.getElementById('raceRepartitionChart').innerHTML = "";
     }
 
-    const [labels, data] = getStateRaceShootings(stateName);
+    const [labels, data] = dataProcessingUtils.prepDoughnutData(stateName);
     const backgroundColor = getBackgrounColors(labels);
 
     if (chart) {
