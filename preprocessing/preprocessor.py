@@ -104,7 +104,6 @@ def main() -> None:
 
     df = _preprocess_shootings_data(raw_df)
     df = PreprocessingUtils.merge_dataframe(df, race_dist_df[['Code Etat', 'Etat']], on='Code Etat')
-    print(df.columns)
     print("Saving to 'data/shootings_dataset.json'.")
     df.to_json('data/shootings_data.json', orient='records')
 
