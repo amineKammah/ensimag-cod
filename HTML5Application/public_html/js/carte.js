@@ -1,4 +1,4 @@
-import df from './dataLoader';
+import { shootings_df, race_df} from './dataLoader';
 import statesData from './us-states';
 
 var map = L.map('map').setView([37.8, -96], 4);
@@ -26,7 +26,7 @@ info.update = function (props) {
     // ici je veux récuperer le nombre du mort dans cette état
     const name = (props ? props.name : "Texas");
 
-    const stateShootingsDf = df.filter(row => row.get('Etat') == name);
+    const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == name);
     const numberOfShootings = stateShootingsDf.dim()[0]
 
     this._div.innerHTML = '<h4> Le nombre du mort </h4>'
@@ -55,7 +55,7 @@ function style(feature) {
     var nombre = 0;
     if (feature.properties) {
         const name = feature.properties.name;
-        const stateShootingsDf = df.filter(row => row.get('Etat') == name);
+        const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == name);
         nombre = stateShootingsDf.dim()[0];
     }
     return {
@@ -69,7 +69,7 @@ function style(feature) {
 }
 
 function getStateRaceShootings(stateName) {
-    const stateShootingsDf = df.filter(row => row.get('Etat') == stateName);
+    const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
     const perRaceShootings = stateShootingsDf.groupBy('Ethnie').aggregate(group => group.count()).rename('aggregation', 'shootingsCount');
     const labels = perRaceShootings.select('Ethnie'), data = perRaceShootings.select('shootingsCount');
 
