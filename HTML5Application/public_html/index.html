@@ -101,18 +101,32 @@
                   Choisir un ou plusieurs critères
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Comparaison avec la population génerale</a>
                   <a class="dropdown-item" href="#">Another action</a>
                   <a class="dropdown-item" href="#">Something else here</a>
                 </div>
               </div>
             </div>
+                <!-- checkbox selectionneur -->
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ToutArme" value="all">
+                <label class="form-check-label" for="inlineRadio1">Tout</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Arme" value="armed">
+                <label class="form-check-label" for="inlineRadio2">Armé</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nonArme" value="unarmed" >
+                <label class="form-check-label" for="inlineRadio3">Non armé </label>
+              </div>
             </div>
+            <!-- checkbox selectionneur -->
              <br><br>
                 <div class="row row-header">
                     <div id="map" class="col-12 col-sm-6  order-first"></div>
                     <div id="chart" class="col-12 col-sm-6">
-                    <canvas id="myDoughnutChart" ></canvas>
+                    <canvas id="raceRepartitionChart" ></canvas>
                     </div>
                 </div>
 
