@@ -15,7 +15,6 @@ var armed = 0;
 var age = 0;
 
 
-console.log(armed);
 // Control
 var info = L.control();
 

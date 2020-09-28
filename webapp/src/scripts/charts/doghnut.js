@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-
-
 var ctx = document.getElementById('myDoughnutChart');
 var myDoughnutChart = new Chart(ctx, {
     type: 'doughnut',

@@ -32,13 +32,15 @@ export default class DataProcessingUtils {
 
         // Maximum value to setup y-axis
         const maxValue = selectedDf.stat.max('groupCount');
+        // Min and max values to setup x-axis
+        const minDate = selectedDf.stat.min('Date'), maxDate = selectedDf.stat.max('Date')
       
         const perRaceData = []
         for (const race of races) {
           perRaceData.push(selectedDf.filter(row => row.get("Ethnie") == race).toCollection());
         }
       
-        return [perRaceData, maxValue]
+        return [perRaceData, maxValue, minDate, maxDate]
       }
 
     static prepDoughnutData(stateName) {
