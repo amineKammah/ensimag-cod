@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm dist/*",
     "dev": "parcel public_html/index.html",
-    "build": "parcel build public_html/index.html",
+    "build": "parcel build public_html/index.html --public-url ./ --no-source-maps",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
