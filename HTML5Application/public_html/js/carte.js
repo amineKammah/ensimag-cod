@@ -72,6 +72,20 @@ function getStateRaceShootings(stateName) {
 
     return [labels.toArray().flat(), data.toArray().flat()]
 }
+
+function getBackgrounColors(racesList) {
+    // Takes the races present in a state and output their corresponding background color
+    const raceColors = {
+        "Blanc": "#5b2c6f", "Noir": "#d35400", "Hispanique": "#5499c7 ",
+        "Asiatique": "#48c9b0", "Natif": "#2e4053", "Autre": "#f4d03f"
+    };
+    const backgroundColors = [];
+
+    racesList.forEach(race => backgroundColors.push(raceColors[race]));
+
+    return backgroundColors
+}
+
 function displayGraph(props) {
     var ctx = document.getElementById('myDoughnutChart');
     if (ctx != "") {
@@ -79,13 +93,13 @@ function displayGraph(props) {
     }
     const stateName = props.name
     const [labels, data] = getStateRaceShootings(stateName);
+    const backgroundColor = getBackgrounColors(labels);
     var myDoughnutChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
                 datasets: [{
                     data: data,
-                    // TODO: Create background colors
-                    backgroundColor: ["#5b2c6f ", "#d35400","#5499c7 ", " #48c9b0 ", "#2e4053", "#f4d03f "]
+                    backgroundColor: backgroundColor,
                 }],
 
                 labels: labels
