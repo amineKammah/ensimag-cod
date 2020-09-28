@@ -75,11 +75,11 @@ function style(feature) {
 }
 
 // plot tha bar
-function getStateRaceShootings(stateName) {
-    const stateShootingsDf;
+function getStateRaceShootings(stateName, armed) {
+    var stateShootingsDf;
     switch (age) {
         case 1:
-            stateShootingsDf = df.filter(row => row.get('Etat') == stateName && row.get('Age') < 19);
+            stateShootingsDf = df.filter(row => row.get('Etat') == stateName && row.get('Age') <= 18);
             console.log('mineur')
             break;
         case 2:
@@ -91,11 +91,11 @@ function getStateRaceShootings(stateName) {
             console.log('all pour age')
     }
     switch (armed) {
-        case 1:
+        case 2:
             stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') == 'Non Arme');
             console.log('non arme')
             break;
-        case 2:
+        case 1:
             stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') != 'Non Arme');
             console.log('arme')
             break;
@@ -136,13 +136,13 @@ function displayRaceRepartition(stateName) {
 
           var armed = 2;
       };
-
+    console.log(armed);
     var ctx = document.getElementById('raceRepartitionChart');
     if (ctx != "") {
         document.getElementById('raceRepartitionChart').innerHTML = "";
     }
 
-    const [labels, data] = getStateRaceShootings(stateName);
+    const [labels, data] = getStateRaceShootings(stateName, armed);
     const backgroundColor = getBackgrounColors(labels);
 
     if (chart) {
