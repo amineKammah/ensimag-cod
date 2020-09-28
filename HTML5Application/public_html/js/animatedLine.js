@@ -1,4 +1,3 @@
-
 import df from './dataLoader';
 
 var margin = { top: 80, right: 80, bottom: 80, left: 80 },

@@ -66,9 +66,35 @@ function style(feature){
 }
 
 function getStateRaceShootings(stateName) {
-    const stateShootingsDf = df.filter(row => row.get('Etat') == stateName);
+    const stateShootingsDf;
+    switch (age) {
+        case 1:
+            stateShootingsDf = df.filter(row => row.get('Etat') == stateName && row.get('Age') < 19);
+            console.log('mineur')
+            break;
+        case 2:
+            stateShootingsDf = df.filter(row => row.get('Etat') == stateName && row.get('Age') >= 19);
+            console.log('majeur')
+            break;
+        default:
+            stateShootingsDf = df.filter(row => row.get('Etat') == stateName);
+            console.log('all pour age')
+    }
+    switch (armed) {
+        case 1:
+            stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') == 'Non Arme');
+            console.log('non arme')
+            break;
+        case 2:
+            stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') != 'Non Arme');
+            console.log('arme')
+            break;
+        default:
+            console.log('all arme')
+    }
     const perRaceShootings = stateShootingsDf.groupBy('Ethnie').aggregate(group => group.count()).rename('aggregation', 'shootingsCount');
     const labels = perRaceShootings.select('Ethnie'), data =  perRaceShootings.select('shootingsCount');
+
 
     return [labels.toArray().flat(), data.toArray().flat()]
 }
