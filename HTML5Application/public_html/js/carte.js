@@ -12,6 +12,12 @@ L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=i8upOzPaFmU
 
 
 
+// initialisation des variable armed and age
+var armed = 0;
+var age = 0;
+
+
+console.log(armed);
 // Control
 var info = L.control();
 
@@ -65,6 +71,7 @@ function style(feature){
     };
 }
 
+// plot tha bar
 function getStateRaceShootings(stateName) {
     const stateShootingsDf = df.filter(row => row.get('Etat') == stateName);
     const perRaceShootings = stateShootingsDf.groupBy('Ethnie').aggregate(group => group.count()).rename('aggregation', 'shootingsCount');
@@ -73,6 +80,19 @@ function getStateRaceShootings(stateName) {
     return [labels.toArray().flat(), data.toArray().flat()]
 }
 function displayGraph(props) {
+    
+    //check 
+    if (document.getElementById("ToutArme").checked === true) {
+            //exemple//
+            var armed = 0;
+        } else if(document.getElementById("Arme").checked === true){
+            var armed = 1;
+
+        } else if (document.getElementById("nonArme").checked === true){
+
+            var armed = 2;
+        };
+    
     var ctx = document.getElementById('myDoughnutChart');
     if (ctx != "") {
         document.getElementById('myDoughnutChart').innerHTML = "";
@@ -160,6 +180,7 @@ function zoomToFeature(e) {
 }
 
 function onEachFeature(feature, layer) {
+        
         layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
