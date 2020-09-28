@@ -95,8 +95,8 @@ def main() -> None:
 
     race_dist_df = _preprocess_race_distribution(race_dist_df)
 
-    print("Saving to 'data/preprocessed_dataset.json'.\n")
-    race_dist_df.to_json('data/race_data.json', orient='records')
+    print("Saving to 'webapp/preprocessed_data/preprocessed_dataset.json'.\n")
+    race_dist_df.to_json('webapp/preprocessed_data/race_data.json', orient='records')
 
     print("Loading and preprocessing 'raw_shooting_data.csv'.")
     raw_data_path = "data/raw_shooting_data.csv"
@@ -104,9 +104,8 @@ def main() -> None:
 
     df = _preprocess_shootings_data(raw_df)
     df = PreprocessingUtils.merge_dataframe(df, race_dist_df[['Code Etat', 'Etat']], on='Code Etat')
-    print(df.columns)
-    print("Saving to 'data/shootings_dataset.json'.")
-    df.to_json('data/shootings_data.json', orient='records')
+    print("Saving to 'webapp/preprocessed_data/shootings_dataset.json'.")
+    df.to_json('webapp/preprocessed_data/shootings_data.json', orient='records')
 
     print("Done.")
 
