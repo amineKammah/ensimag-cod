@@ -9,4 +9,5 @@ const race_df = new DataFrame(data)
 jsonData = readFileSync('./preprocessed_data/shootings_data.json', 'utf8');
 data = JSON.parse(jsonData);
 const shootings_df = new DataFrame(data)
+
 export { shootings_df, race_df };
