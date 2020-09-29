@@ -75,18 +75,25 @@ export default class DataProcessingUtils {
                 console.log('all arme')
         }
         // Get number of shootings per race
-        const perRaceShootings = (
+        var perRaceShootings = (
             stateShootingsDf.groupBy('Ethnie')
             .aggregate(group => group.count())
             .rename('aggregation', 'shootingsCount')
         );
 
         // divide by state race ratio
-        // perRaceShootings = perRaceShootings.map(row => row.set('shootingsCount', row.get('shootingsCount') / race_df.filter(row => row.get('Etat') == stateName).select(Ethnie).toArray()[0][0]));
+        perRaceShootings = perRaceShootings.map(row => row.set('shootingsCount', row.get('shootingsCount') / race_df.filter(row => row.get('Etat') == stateName).select(row.get('Ethnie')).toArray()[0][0]));
 
-        const labels = perRaceShootings.select('Ethnie'), data = perRaceShootings.select('shootingsCount');
+        var labels = perRaceShootings.select('Ethnie'), data = perRaceShootings.select('shootingsCount');
 
-        return [labels.toArray().flat(), data.toArray().flat()]
+        // turning the data into percentages
+        var sum = 0;
+        data = data.toArray().flat()
+        data.forEach(element => sum += element);
+        var newData = [];
+        data.forEach(element => newData.push(element * 100 / sum));
+
+        return [labels.toArray().flat(), newData]
     }
 
     static numberOfShootingsInState(stateName) {
