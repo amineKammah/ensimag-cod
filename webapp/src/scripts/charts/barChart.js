@@ -22,25 +22,38 @@ var armed = 0;
 
 function getdifferenceRaces() {
     var dataRaces = new Map();
-    
-    if (armed === 0){
-        const totalNumberOfShootings = shootings_df.dim()[0];
-        const stateShootingsDf = shootings_df.filter(row => row.get('Ethnie') == key);
-    }
-    const totalNumberOfShootings = shootings_df.dim()[0];
+    var shootingFilter;
+    switch (armed) {
+            case 0:
+                shootingFilter = shootings_df;
+                break;
+            case 1:
+                // armed
+                shootingFilter = shootings_df.filter(row => row.get('Categorie arme') != 'Non Arme');
+                console.log("armedd");
+                break;
+            case 2:
+                // unarmed
+                shootingFilter = shootings_df.filter(row => row.get('Categorie arme') == 'Non Arme');
+                break;
+            default:
+                shootingFilter = shootings_df;
+        }
+    var totalNumberOfShootings = shootingFilter.dim()[0];
     for (var [key, value] of races){
         // récuperer le nombre du mort de cette races
-        const stateShootingsDf = shootings_df.filter(row => row.get('Ethnie') == key);
+        const stateShootingsDf = shootingFilter.filter(row => row.get('Ethnie') == key);
         const numberOfShootings = stateShootingsDf.dim()[0];
         var proportion = (numberOfShootings/totalNumberOfShootings)*100;
         dataRaces.set(key, parseFloat(proportion - value).toFixed(2));
     }
-
+    console.log(dataRaces);
     return dataRaces;
 }
 
 var dataRaces = getdifferenceRaces();
 var color = Chart.helpers.color;
+
 
 
 
@@ -83,7 +96,6 @@ window.onload = function() {
 
                 }
         });
-
 };
 
 function checkButton(){
@@ -102,6 +114,18 @@ function checkButton(){
         armed = 3;
         console.log(armed);
       };
+      dataRaces = getdifferenceRaces();
+      barChartData = {
+        labels: Array.from(dataRaces.keys()),
+        datasets: [{
+                label: 'Percentage',
+                backgroundColor: '#95a5a6',
+                borderColor: "#5f6a6a",
+                borderWidth: 1,
+                data: Array.from(dataRaces.values())
+        }]
+
+    };
     }   
 
 
@@ -119,7 +143,9 @@ document.getElementById('arme0').addEventListener('click', function() {
 
         });
          */
+        window.myBar.data = barChartData;
         window.myBar.update();
+        console.log("whaat");
 });
 
 document.getElementById('nonArme0').addEventListener('click', function() {
@@ -134,5 +160,6 @@ document.getElementById('nonArme0').addEventListener('click', function() {
 
         });
          */
+        window.myBar.data = barChartData;
         window.myBar.update();
 });
