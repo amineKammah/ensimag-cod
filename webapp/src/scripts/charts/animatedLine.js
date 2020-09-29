@@ -2,6 +2,9 @@
 import dataProcessingUtils from '../dataTreatment/dataProcessingUtils';
 
 class AnimatedLines {
+  /*
+  * Draws animated lines of the number of shootings the USA per race monthly
+  */
   constructor() {
     const button = document.getElementById("resetButton");
     button.addEventListener('click', _ => this.reset())
@@ -13,12 +16,13 @@ class AnimatedLines {
 
   loadData() {
     [this.data, this.maxValue, this.beginDate, this.endDate] = dataProcessingUtils.PrepAnimatedLinesData();
-
+    // Labels are the different races
     this.labels = [];
     this.data.forEach(element => {
       this.labels.push(element[0]['Ethnie']);
     });
 
+    // Maps each race to a specific color
     this.colors = {}
     var colors_generator = d3.scaleOrdinal(d3.schemeCategory10);
     this.labels.forEach(race => {

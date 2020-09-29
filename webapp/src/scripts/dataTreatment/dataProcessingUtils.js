@@ -7,7 +7,7 @@ export default class DataProcessingUtils {
 
     static PrepAnimatedLinesData() {
         /*
-        * Outputs the number of shootings per race per month, divided by the population ratio of the race.
+        * Outputs the number of shootings per race per month, multiplied by (1 - the population ratio of the race).
         * To be used with the animated lines chart
         */
         const races = shootings_df.unique('Ethnie').toArray().flat();
@@ -27,8 +27,8 @@ export default class DataProcessingUtils {
         // Race percentages in the US
         const USracePct = race_df.filter(row => row.get('Code Etat') == 'US').toCollection()[0];
       
-        // Divide number of shootings by race percentage in the US
-        selectedDf = selectedDf.map(row => row.set('groupCount', row.get('groupCount') / USracePct[row.get('Ethnie')]))
+        // Multiply number of shootings by  (1- race percentage in the US)
+        selectedDf = selectedDf.map(row => row.set('groupCount', row.get('groupCount') * (1 - USracePct[row.get('Ethnie')])))
 
         // Maximum value to setup y-axis
         const maxValue = selectedDf.stat.max('groupCount');
