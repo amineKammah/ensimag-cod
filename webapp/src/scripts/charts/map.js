@@ -1,19 +1,19 @@
 import dataProcessingUtils from '../dataTreatment/dataProcessingUtils';
 import statesData from '../dataTreatment/us-states';
 
-class Map {
+class MapPlotter {
     /*
     * Draws a USA map with the number of shootings in each state, When a state is clicked,
-    * displays a doughnut containing the shootings repartition per state
+    * displays a doughnut containing the shootings repartition per race
     */
 
     render() {
-        this.drawMap();
-        Map.drawRaceDoughnut("Texas");
+        MapPlotter.drawMap();
+        MapPlotter.drawRaceDoughnut("Texas");
     }
 
     static getMapIntensity(numberOfShootings) {
-        /* Returns the corresponding intensity color to the number of shootings */
+        /* Returns the corresponding color to the number of shootings */
         return numberOfShootings > 700 ? '#800026' :
             numberOfShootings > 350 ? '#BD0026' :
                 numberOfShootings > 200 ? '#E31A1C' :
@@ -24,7 +24,7 @@ class Map {
                                     '#FFEDA0';
     }
 
-    static getBackgrounColors(racesList) {
+    static getBackgroundColors(racesList) {
         /* Takes an array of races and output their corresponding background color */
 
         const raceColors = {
@@ -38,30 +38,9 @@ class Map {
         return backgroundColors;
     }
 
-    static getStyle(feature) {
-
-        /* Returns the style of a state */
-
-        var numberOfShootings = 0;
-
-        if (feature.properties) {
-            const stateName = feature.properties.name;
-            numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName);
-        }
-
-        return {
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-            dashArray: '3',
-            fillOpacity: 0.7,
-            fillColor: Map.getMapIntensity(numberOfShootings)
-        };
-    }
-
     static drawRaceDoughnut(stateName) {
         /* Draws a doughnut representing the repartition of shootings across the different
-        * races present in the state
+        * races present in the state on the right hand side of the map.
         */
 
         //check
@@ -87,14 +66,14 @@ class Map {
         }
 
         const [labels, data] = dataProcessingUtils.prepDoughnutData(stateName);
-        const backgroundColor = Map.getBackgrounColors(labels);
+        const backgroundColor = MapPlotter.getBackgroundColors(labels);
 
-        if (Map.raceDoughnut) {
+        if (MapPlotter.raceDoughnut) {
             // Destroys old doughnut before drawing a new one
-            Map.raceDoughnut.destroy();
+            MapPlotter.raceDoughnut.destroy();
         }
 
-        Map.raceDoughnut = new Chart(ctx, {
+        MapPlotter.raceDoughnut = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 datasets: [{
@@ -112,6 +91,25 @@ class Map {
         });
     }
 
+    static getStyle(feature) {
+        /* Returns the style of a state on the map */
+        var numberOfShootings = 0;
+
+        if (feature.properties) {
+            const stateName = feature.properties.name;
+            numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName);
+        }
+
+        return {
+            weight: 2,
+            opacity: 1,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.7,
+            fillColor: MapPlotter.getMapIntensity(numberOfShootings)
+        };
+    }
+
     static highlightFeature(e) {
         /* Event Manager */
         var layer = e.target;
@@ -126,55 +124,39 @@ class Map {
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
             layer.bringToFront();
         }
-        Map.info.update(layer.feature.properties);
+        MapPlotter.info.update(layer.feature.properties);
     }
         
     static resetHighlight(e) {
-        Map.geojson.resetStyle(e.target);
+        MapPlotter.geojson.resetStyle(e.target);
     }
     
     static zoomToFeature(e) {
         /* Event Manager */
         var layer = e.target;
-        Map.drawRaceDoughnut(layer.feature.properties.name);
+        MapPlotter.drawRaceDoughnut(layer.feature.properties.name);
     }
     
     static onEachFeature(feature, layer) {
         /* Event Manager */
         layer.on({
-            mouseover: Map.highlightFeature,
-            mouseout: Map.resetHighlight,
-            click: Map.zoomToFeature
+            mouseover: MapPlotter.highlightFeature,
+            mouseout: MapPlotter.resetHighlight,
+            click: MapPlotter.zoomToFeature
         });
     }
 
-    static geojson = L.geoJson(statesData, {
-        style: Map.getStyle,
-        onEachFeature: Map.onEachFeature
-    });
-
-    static info = L.control();
-
-    drawMap() {
-
-        var map = L.map('map').setView([37.8, -96], 4);
-        L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=i8upOzPaFmUXM0tH6yA4',
-            {
-                maxZoom: 18,
-                attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-                tileSize: 512,
-                zoomOffset: -1
-            }).addTo(map);
-
-
+    static setupMapControl(map){
+        /* Setup event manager */
+        var info = L.control();
         // creates Dom elements for the layer, add them to map panes
-        Map.info.onAdd = function (map) {
+        info.onAdd = function (map) {
             this._div = L.DomUtil.create('div', 'info');
             this.update();
             return this._div;
         };
 
-        Map.info.update = function (props) {
+        info.update = function (props) {
             const stateName = (props ? props.name : "Texas");
 
             const numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName)
@@ -183,11 +165,24 @@ class Map {
             this._div.innerHTML = '<h4> Le nombre du mort </h4>' + info
         };
 
-        Map.info.addTo(map);
-        Map.geojson.addTo(map);
-        
-        map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
-        
+        info.addTo(map);
+
+        MapPlotter.info = info;
+    }
+
+    static setupGeoJson(map) {
+        /* Defines the geographic borders of the states */
+        var geojson = L.geoJson(statesData, {
+            style: MapPlotter.getStyle,
+            onEachFeature: MapPlotter.onEachFeature
+        });
+
+        geojson.addTo(map);
+        MapPlotter.geojson = geojson;
+    }
+
+    static setupLegend(map) {
+        /* Add a legend to the map */
         var legend = L.control({ position: 'bottomright' });
         
         legend.onAdd = function (map) {
@@ -202,7 +197,7 @@ class Map {
                 to = grades[i + 1];
         
                 labels.push(
-                    `<i style="background:${Map.getMapIntensity(from + 1)}"></i>
+                    `<i style="background:${MapPlotter.getMapIntensity(from + 1)}"></i>
                     ${from} ${to ? '&ndash;' + to : '+'}`
                 )
             }
@@ -213,6 +208,24 @@ class Map {
         
         legend.addTo(map);
     }
+
+    static drawMap() {
+        var map = L.map('map').setView([37.8, -96], 4);
+        L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=i8upOzPaFmUXM0tH6yA4',
+            {
+                maxZoom: 18,
+                attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+                tileSize: 512,
+                zoomOffset: -1
+            }).addTo(map);
+
+
+        MapPlotter.setupMapControl(map);
+        MapPlotter.setupGeoJson(map);
+        MapPlotter.setupLegend(map);
+        
+        map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+    }
 }
 
-new Map().render();
+new MapPlotter().render();
