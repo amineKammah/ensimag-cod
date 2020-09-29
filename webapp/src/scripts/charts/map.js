@@ -30,7 +30,7 @@ info.onAdd = function (map) {
 
 info.update = function (props) {
     // ici je veux récuperer le nombre du mort dans cette état
-    const stateName = (props ? props.name : "Texas");
+    var stateName = (props ? props.name : "Texas");
 
 
     const numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName, age, armed)
@@ -60,7 +60,7 @@ function style(feature) {
 
     var numberOfShootings = 0;
     if (feature.properties) {
-        const stateName = feature.properties.name;
+        var stateName = feature.properties.name;
         numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName, age, armed);
     }
     return {
