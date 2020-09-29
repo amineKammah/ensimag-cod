@@ -104,11 +104,8 @@
             le pourcentage des victimes par rapport à l'ensemble de la population</p>
             <br>
              <!-- checkbox selectionneur -->
-             <div class="row">
-                 
-             </div>
-             <div class="container col-12 col-sm-6">
-                    
+             <div class="container text-center">
+      
                  <div class="row row-header">
                <!-- Default checked -->
                 <div class="form-check form-check-inline">
@@ -123,9 +120,7 @@
                 <label class="form-check-label" for="inlineRadio1">Non armé</label>
               </div>
                 </div>
-              </div>
-             <div class="container col-12 col-sm-6">
-                 
+    
                  <div class="row row-header">
                <!-- Default checked -->
                 <div class="form-check form-check-inline">
@@ -140,7 +135,38 @@
                 <label class="form-check-label" for="inlineRadio1">majeur</label>
               </div>
                 </div>
+               
+                <div class="row row-header">
+                 signes de maladie mentale   
+                 </div>
+              <div class="row row-header">
+                 <div class="form-check form-check-inline">
+                 <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="mentalY" value="armed">
+                 <label class="form-check-label" for="inlineRadio1">Oui</label>
+               </div>
+               <div class="form-check form-check-inline">
+                 <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="mentalN" value="armed">
+                 <label class="form-check-label" for="inlineRadio1">Non</label>
+               </div>
              </div>
+               
+               <div class="row row-header">
+                 Fuite :  
+                 </div>
+              <div class="row row-header">
+                 <div class="form-check form-check-inline">
+                 <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="fuiteY" value="armed">
+                 <label class="form-check-label" for="inlineRadio1">Oui</label>
+               </div>
+               <div class="form-check form-check-inline">
+                 <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="fuiteN" value="armed">
+                 <label class="form-check-label" for="inlineRadio1">Non</label>
+               </div>
+             </div>
+             </div>
+             
+             
+             
             <!-- checkbox selectionneur -->
             <div id="container" style="width: 75%;">
                     <div class="center-block">
@@ -156,18 +182,6 @@
     <div id="carte">
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <div class="row text-center justify-content-md-center">
-            <div class="dropdown col-12 col-sm-12 order-last">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Choisir un ou plusieurs critères
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Comparaison avec la population génerale</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </div>
-            </div>
                 <!-- checkbox selectionneur -->
                 <div class="row row-header">
                     Cliquez pour voir comment les données démographiques des victimes changent selon qu'elles sont armées ou non

@@ -18,39 +18,59 @@ console.log(races);
 
 var armed = 0;
 var age = 0;
+var ilness = false;
+var nonIlness = false;
+var fuite = 0;
 // default checked button
 
 function getdifferenceRaces() {
     var dataRaces = new Map();
-    var shootingFilter;
+    var shootingFilter = shootings_df;
     switch (armed) {
-            case 0:
-                shootingFilter = shootings_df;
-                break;
             case 1:
                 // armed
-                shootingFilter = shootings_df.filter(row => row.get('Categorie arme') != 'Non Arme');
+                shootingFilter = shootingFilter.filter(row => row.get('Categorie arme') != 'Non Arme');
                 console.log("armedd");
                 break;
             case 2:
                 // unarmed
-                shootingFilter = shootings_df.filter(row => row.get('Categorie arme') == 'Non Arme');
+                shootingFilter = shootingFilter.filter(row => row.get('Categorie arme') == 'Non Arme');
                 break;
-            default:
-                shootingFilter = shootings_df;
-        }
+        };
     switch (age){
             case 1:
                 // mineur
-                shootingFilter = shootings_df.filter(row => row.get('Age') <= 18);
+                shootingFilter = shootingFilter.filter(row => row.get('Age') <= 18);
                 console.log("mineur");
                 break;
             case 2:
                 // majeur
-                shootingFilter = shootings_df.filter(row => row.get('Age') >= 19);
+                shootingFilter = shootingFilter.filter(row => row.get('Age') >= 19);
                 console.log("majeur");
                 break;
-            default:
+    };
+    switch (fuite){
+            case 1:
+                // fuite
+                shootingFilter = shootingFilter.filter(row => row.get('Fuite') != 'Pas de fuite');
+                
+                break;
+            case 2:
+                // Not fleeing
+                shootingFilter = shootingFilter.filter(row => row.get('Fuite') == "Pas de fuite");
+              
+                break;
+    };
+    console.log(shootingFilter.dim()[0]);
+    if ((ilness ^ nonIlness)){
+        if (ilness){
+             shootingFilter = shootingFilter.filter(row => row.get('Signes de maladie mentale') == 1);
+            
+        }
+        if (nonIlness){
+            shootingFilter = shootingFilter.filter(row => row.get('Signes de maladie mentale') == 0);
+        }
+       
     }
     var totalNumberOfShootings = shootingFilter.dim()[0];
     for (var [key, value] of races){
@@ -60,7 +80,7 @@ function getdifferenceRaces() {
         var proportion = (numberOfShootings/totalNumberOfShootings)*100;
         dataRaces.set(key, parseFloat(proportion - value).toFixed(2));
     }
-    console.log(dataRaces);
+    //console.log(dataRaces);
     return dataRaces;
 }
 
@@ -96,7 +116,7 @@ window.onload = function() {
                             yAxes: [{
                                 ticks: {
 
-                                       min: -30,
+                                       min: -40,
                                        max: 40,
                                        callback: function(value){return value+ "%"}
                                     },
@@ -120,11 +140,23 @@ function checkButton(){
       } else if (document.getElementById("nonArme0").checked === true){
 
           armed = 2;
-          console.log(armed);
+          
       } else {
-        armed = 3;
-        console.log(armed);
+        armed = 0;
       };
+      if ((document.getElementById("fuiteY").checked === true) && (document.getElementById("fuiteN").checked === true)) {
+          //exemple//
+          fuite = 0;
+      } else if(document.getElementById("fuiteY").checked === true){
+          fuite = 1;
+      } else if (document.getElementById("fuiteN").checked === true){
+
+          fuite = 2;
+          
+      } else {
+        fuite = 0;
+      };
+      
       if ((document.getElementById("mineur0").checked === true) && (document.getElementById("majeur0").checked === true)) {
           //exemple//
           age = 0;
@@ -135,10 +167,27 @@ function checkButton(){
           age = 2;
           
       } else {
-        age = 3;
+        age = 0;
       };
-      dataRaces = getdifferenceRaces();
-      barChartData = {
+      if (document.getElementById("mentalY").checked === true) {
+          //exemple//
+          ilness = true;
+      } else {
+          ilness = false;
+      };
+      if (document.getElementById("mentalN").checked === true) {
+          //exemple//
+          nonIlness = true;
+      } else {
+          nonIlness = false;
+      };
+    }   
+
+
+function updateData(){
+        checkButton();
+        dataRaces = getdifferenceRaces();
+        barChartData = {
         labels: Array.from(dataRaces.keys()),
         datasets: [{
                 label: 'Percentage',
@@ -149,35 +198,15 @@ function checkButton(){
         }]
 
     };
-    }   
-
-
-
+        window.myBar.data = barChartData;
+        window.myBar.update();
+}
        
-document.getElementById('arme0').addEventListener('click', function() {
-        
-        checkButton();
-        window.myBar.data = barChartData;
-        window.myBar.update();
-});
-
-document.getElementById('nonArme0').addEventListener('click', function() {
-        
-        checkButton();
-        window.myBar.data = barChartData;
-        window.myBar.update();
-});
-
-document.getElementById('mineur0').addEventListener('click', function() {
-        
-        checkButton();
-        window.myBar.data = barChartData;
-        window.myBar.update();
-});
-
-document.getElementById('majeur0').addEventListener('click', function() {
-        
-        checkButton();
-        window.myBar.data = barChartData;
-        window.myBar.update();
-});
+document.getElementById('arme0').addEventListener('click', updateData);
+document.getElementById('nonArme0').addEventListener('click', updateData);
+document.getElementById('mineur0').addEventListener('click', updateData);
+document.getElementById('majeur0').addEventListener('click', updateData);
+document.getElementById('mentalY').addEventListener('click', updateData);
+document.getElementById('mentalN').addEventListener('click', updateData);
+document.getElementById('fuiteN').addEventListener('click', updateData);
+document.getElementById('fuiteY').addEventListener('click', updateData);
