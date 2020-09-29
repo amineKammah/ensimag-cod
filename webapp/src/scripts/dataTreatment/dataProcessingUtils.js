@@ -82,7 +82,7 @@ export default class DataProcessingUtils {
         );
 
         // divide by state race ratio
-        perRaceShootings = perRaceShootings.map(row => row.set('shootingsCount', row.get('shootingsCount') / race_df.filter(row => row.get('Etat') == stateName).select(Ethnie).toArray()[0][0]));
+        // perRaceShootings = perRaceShootings.map(row => row.set('shootingsCount', row.get('shootingsCount') / race_df.filter(row => row.get('Etat') == stateName).select(Ethnie).toArray()[0][0]));
 
         const labels = perRaceShootings.select('Ethnie'), data = perRaceShootings.select('shootingsCount');
 
