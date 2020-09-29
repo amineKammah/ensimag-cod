@@ -96,13 +96,33 @@ export default class DataProcessingUtils {
         return [labels.toArray().flat(), newData]
     }
 
-    static numberOfShootingsInState(stateName) {
+    static numberOfShootingsInState(stateName, age, armed) {
         /*
         * Number of shootings in a state
         * to be displayed in the top right side of the map
         */
 
-        const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+        var stateShootingsDf;
+
+        switch (age) {
+            case 1:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName && row.get('Age') <= 18);
+                break;
+            case 2:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName && row.get('Age') >= 19);
+                break;
+            default:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+        }
+        switch (armed) {
+            case 2:
+                stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') == 'Non Arme');
+                break;
+            case 1:
+                stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') != 'Non Arme');
+                break;
+        }
+
         return stateShootingsDf.dim()[0]
     }
 }

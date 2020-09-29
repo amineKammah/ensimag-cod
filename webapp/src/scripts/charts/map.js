@@ -14,6 +14,8 @@ L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=i8upOzPaFmU
 var armed = 0;
 var age = 0;
 
+var stateName = 'Texas';
+
 
 console.log(armed);
 // Control
@@ -31,11 +33,11 @@ info.update = function (props) {
     const stateName = (props ? props.name : "Texas");
 
 
-    const numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName)
+    const numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName, age, armed)
 
-    this._div.innerHTML = '<h4> Le nombre du mort </h4>'
+    this._div.innerHTML = '<h4> Le nombre de tirs/morts</h4>'
         + (props ? '<b>' + name + '</b><br />' + numberOfShootings
-            + ' morts' : 'survoler sur un état');
+            + ' tirs/morts' : 'survoler sur un état');
 };
 
 info.addTo(map);
@@ -59,7 +61,7 @@ function style(feature) {
     var numberOfShootings = 0;
     if (feature.properties) {
         const stateName = feature.properties.name;
-        numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName);
+        numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName, age, armed);
     }
     return {
         weight: 2,
@@ -144,7 +146,7 @@ function displayRaceRepartition(stateName) {
 }
 // affichage par défaut de l'état texas
 function byDefault() {
-    displayRaceRepartition('Texas');
+    displayRaceRepartition(stateName);
 }
 byDefault();
 // event listener for layer mouseover event
@@ -172,8 +174,58 @@ function resetHighlight(e) {
 
 function zoomToFeature(e) {
     var layer = e.target;
-    displayRaceRepartition(layer.feature.properties.name);
+    stateName = layer.feature.properties.name;
+    displayRaceRepartition(stateName);
 }
+
+document.getElementById('ToutArme').addEventListener('click', function() {
+    displayRaceRepartition(stateName);
+    geojson = L.geoJson(statesData, {
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(map);
+});
+
+document.getElementById('Arme').addEventListener('click', function() {
+    displayRaceRepartition(stateName);
+    geojson = L.geoJson(statesData, {
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(map);
+});
+
+document.getElementById('nonArme').addEventListener('click', function() {
+    displayRaceRepartition(stateName);
+    geojson = L.geoJson(statesData, {
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(map);
+});
+
+document.getElementById('Toutage').addEventListener('click', function() {
+    displayRaceRepartition(stateName);
+    geojson = L.geoJson(statesData, {
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(map);
+});
+
+document.getElementById('Mineur').addEventListener('click', function() {
+    displayRaceRepartition(stateName);
+    geojson = L.geoJson(statesData, {
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(map);
+});
+
+document.getElementById('Majeur').addEventListener('click', function() {
+    displayRaceRepartition(stateName);
+    geojson = L.geoJson(statesData, {
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(map);
+});
+
 
 function onEachFeature(feature, layer) {
     layer.on({
