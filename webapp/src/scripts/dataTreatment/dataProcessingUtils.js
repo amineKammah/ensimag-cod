@@ -7,7 +7,7 @@ export default class DataProcessingUtils {
 
     static PrepAnimatedLinesData() {
         /*
-        * Outputs the number of shootings per race per month, multiplied by (1 - the population ratio of the race).
+        * Outputs a collection of the number of shootings per race per month, multiplied by (1 - the population ratio of the race).
         * To be used with the animated lines chart
         */
         const races = shootings_df.unique('Ethnie').toArray().flat();
@@ -24,10 +24,10 @@ export default class DataProcessingUtils {
             .rename('aggregation', 'groupCount')
         )
         
-        // Race percentages in the US
+        // Race ratios in the US
         const USracePct = race_df.filter(row => row.get('Code Etat') == 'US').toCollection()[0];
       
-        // Multiply number of shootings by  (1- race percentage in the US)
+        // Multiply number of shootings by  (1 - race percentage in the US)
         selectedDf = selectedDf.map(row => row.set('groupCount', row.get('groupCount') * (1 - USracePct[row.get('Ethnie')])))
 
         // Maximum value to setup y-axis
@@ -45,7 +45,7 @@ export default class DataProcessingUtils {
 
     static prepDoughnutData(stateName) {
         /*
-        * Outputs the number of shootings per race in a specific state
+        * Outputs a collection of the numbers of shootings per race in a specific state
         * To be used to draw a Doughnut.
         */
 
@@ -65,7 +65,7 @@ export default class DataProcessingUtils {
 
     static numberOfShootingsInState(stateName) {
         /*
-        * Number of shootings in a state
+        * Outputs the total number of shootings in a state
         * to be displayed in the top right side of the map
         */
 
