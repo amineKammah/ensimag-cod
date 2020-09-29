@@ -108,18 +108,19 @@ function displayRaceRepartition(stateName) {
 
           age = 2;
       };
-
+    console.log(armed);
     var ctx = document.getElementById('raceRepartitionChart');
     if (ctx != "") {
         document.getElementById('raceRepartitionChart').innerHTML = "";
     }
 
-    const [labels, data] = dataProcessingUtils.prepDoughnutData(stateName);
+    const [labels, data] = dataProcessingUtils.prepDoughnutData(stateName, age, armed);
     const backgroundColor = getBackgrounColors(labels);
 
     if (chart) {
         chart.destroy();
     }
+
     chart = new Chart(ctx, {
         type: 'doughnut',
         data: {

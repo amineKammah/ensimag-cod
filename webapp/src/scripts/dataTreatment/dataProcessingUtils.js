@@ -11,7 +11,7 @@ export default class DataProcessingUtils {
         * To be used with the animated lines chart
         */
         const races = shootings_df.unique('Ethnie').toArray().flat();
-      
+
         let selectedDf = shootings_df.select('Annee', 'Mois', 'Ethnie');
         selectedDf = selectedDf.cast('Annee', String);
         selectedDf = selectedDf.cast('Mois', String);
@@ -23,32 +23,57 @@ export default class DataProcessingUtils {
             .aggregate(group => group.count())
             .rename('aggregation', 'groupCount')
         )
-        
+
         // Race percentages in the US
         const USracePct = race_df.filter(row => row.get('Code Etat') == 'US').toCollection()[0];
-      
+
         // Divide number of shootings by race percentage in the US
         selectedDf = selectedDf.map(row => row.set('groupCount', row.get('groupCount') / USracePct[row.get('Ethnie')]))
 
         // Maximum value to setup y-axis
         const maxValue = selectedDf.stat.max('groupCount');
-      
+
         const perRaceData = []
         for (const race of races) {
           perRaceData.push(selectedDf.filter(row => row.get("Ethnie") == race).toCollection());
         }
-      
+
         return [perRaceData, maxValue]
       }
 
-    static prepDoughnutData(stateName) {
+    static prepDoughnutData(stateName, age, armed) {
         /*
         * Outputs the number of shootings per race in a specific state
         * To be used to draw a Doughnut.
         */
 
         // Keep shootings that happened in `stateName`
-        const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+        var stateShootingsDf;
+        switch (age) {
+            case 1:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName && row.get('Age') <= 18);
+                console.log('mineur')
+                break;
+            case 2:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName && row.get('Age') >= 19);
+                console.log('majeur')
+                break;
+            default:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+                console.log('all pour age')
+        }
+        switch (armed) {
+            case 2:
+                stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') == 'Non Arme');
+                console.log('non arme')
+                break;
+            case 1:
+                stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') != 'Non Arme');
+                console.log('arme')
+                break;
+            default:
+                console.log('all arme')
+        }
         // Get number of shootings per race
         const perRaceShootings = (
             stateShootingsDf.groupBy('Ethnie')
@@ -56,8 +81,11 @@ export default class DataProcessingUtils {
             .rename('aggregation', 'shootingsCount')
         );
 
+        // divide by state race ratio
+        // perRaceShootings = perRaceShootings.map(row => row.set('shootingsCount', row.get('shootingsCount') / race_df.filter(row => row.get('Etat') == stateName).select(Ethnie).toArray()[0][0]));
+
         const labels = perRaceShootings.select('Ethnie'), data = perRaceShootings.select('shootingsCount');
-    
+
         return [labels.toArray().flat(), data.toArray().flat()]
     }
 
