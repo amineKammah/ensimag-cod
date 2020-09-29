@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Required meta tags always come first -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- leaflet -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- chart.js -->
+        <script src="scripts/charts/utils.js"></script>
+
+
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+	<title>
+		Challenge open data
+	</title>
+        <!-- add a title icon -->
+        <link rel="icon" href="https://img.icons8.com/metro/26/000000/combo-chart.png" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+	<link rel="stylesheet" type="text/css" href="./styles/index.css" />
+</head>
+<body id="accueil">
+
+        <!-- Navigation bar  -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+
+          <a class="navbar-brand js-scroll-trigger" href="#accueil">
+            <img src="images/logo.png" width="150" height="40" class="d-inline-block align-top" alt="">
+            <small class="text-muted" id="button">Challenge open data</small>
+          </a>
+           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+        aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" id="button">
+              <a class="navbar-brand js-scroll-trigger" href="#carte">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-map-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.502.502 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5V.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.498.498 0 0 0-.196 0L5 14.09zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1-.5-.1z"/>
+</svg>
+            <small class="text-muted">Carte</small>
+          </a>
+
+          </li>
+           <li class="nav-item" id="button">
+                <a class="navbar-brand js-scroll-trigger" href="animatedLine.html">
+<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bar-chart-line-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/>
+</svg>
+            <small class="text-muted">Ligne animée</small>
+          </a>
+          </li>
+          <li class="nav-item" id="button">
+              <a class="navbar-brand js-scroll-trigger" href="rapport.html">
+<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book-half" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M8.5 2.687v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+</svg>
+            <small class="text-muted">Rapport</small>
+          </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+      <!-- Header -->
+    <header class="masthead banner" id="banner">
+      <div class="container d-flex h-100 align-items-center">
+        <div class="mx-auto text-center">
+          <h1 class="mx-auto my-0 text-uppercase">Tirs de la police américaine</h1>
+          <h4 class="text-white-50 mx-auto mt-2 mb-5">
+              Après la mort de George Floyd, des manifestations ont commencé en Amerique du nord au sujet du racisme. En cliquant sur la barre en haut, vous pouvez accéder à des visualisations
+              interactives des données des tirs de la police americaine selon plusieurs
+              facteurs (la race incluse), pendant les 5 dernieres années.
+          </h4>
+
+        </div>
+      </div>
+    </header>
+
+
+    <!-- statistiques génerales -->
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="mx-auto text-center">
+            <h2 class="mx-auto my-0 text-uppercase" >Statistiques génerales</h2>
+            <p>Les Blancs représentent en fait un pourcentage beaucoup plus faible
+            des victimes par rapport à l'ensemble de la population, le delta le plus
+            élevé est celui des Noirs, qui représentent près de deux fois
+            le pourcentage des victimes par rapport à l'ensemble de la population</p>
+            <br>
+             <!-- checkbox selectionneur -->
+             <div class="container">
+                 <div class="row row-header">
+                    Cliquez pour voir comment les données démographiques des victimes changent selon qu'elles sont armées ou non
+                    </div>
+                 <div class="row row-header">
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ToutArme0" value="all">
+                <label class="form-check-label" for="inlineRadio1">Tout</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Arme0" value="armed">
+                <label class="form-check-label" for="inlineRadio2">Armé</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nonArme0" value="unarmed" >
+                <label class="form-check-label" for="inlineRadio3">Non armé </label>
+              </div>
+                </div>
+             </div>
+
+            <!-- checkbox selectionneur -->
+            <div id="container" style="width: 75%;">
+                    <div class="center-block">
+                        <canvas id="barChart"></canvas>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- statistiques génerales -->
+
+    <!--carte -->
+    <div id="carte">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <div class="row text-center justify-content-md-center">
+            <div class="dropdown col-12 col-sm-12 order-last">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Choisir un ou plusieurs critères
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Comparaison avec la population génerale</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </div>
+            </div>
+                <!-- checkbox selectionneur -->
+                <div class="row row-header">
+                    Cliquez pour voir comment les données démographiques des victimes changent selon qu'elles sont armées ou non
+                    </div>
+                 <div class="row row-header">
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ToutArme" value="all">
+                <label class="form-check-label" for="inlineRadio1">Tout</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Arme" value="armed">
+                <label class="form-check-label" for="inlineRadio2">Armé</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nonArme" value="unarmed" >
+                <label class="form-check-label" for="inlineRadio3">Non armé </label>
+              </div>
+                </div>
+            <!-- checkbox selectionneur -->
+
+            <!-- checkbox selectionneur -->
+                <div class="row row-header">
+                    Cliquez pour voir comment les données démographiques des victimes changent selon leur age
+                    </div>
+                <div class="row row-header">
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Toutage" value="all">
+                <label class="form-check-label" for="inlineRadio1">Tout</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Mineur" value="armed">
+                <label class="form-check-label" for="inlineRadio2">Mineur</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Majeur" value="unarmed" >
+                <label class="form-check-label" for="inlineRadio3">Majeur </label>
+              </div>
+            </div>
+            </div>
+            </div>
+            <!-- checkbox selectionneur -->
+             <br><br>
+                <div class="row row-header">
+                    <div id="map" class="col-12 col-sm-6  order-first"></div>
+                    <div id="chart" class="col-12 col-sm-6">
+                    <canvas id="raceRepartitionChart" ></canvas>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+    <!-- carte -->
+   <!-- Footer -->
+<footer  id="footer" class="bg-black small text-center text-white-50">
+
+  <!-- Copyright -->
+  <div  class="footer-copyright text-center py-3">
+      © Copyright Challenge open data 2020-2021
+  </div>
+
+    <div>
+        AMALOU Naima - GUERWANE Houda -  HAFYANE Kaoutar - HALOUI Ali - KAMMAH Mohammad Amine
+    </div>
+  <br><br>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script type="text/javascript" src="scripts/dataTreatment/us-states.js"></script>
+<script type="text/javascript" src="scripts/charts/map.js"></script>
+ <script type="text/javascript" src="scripts/charts/barChart.js"></script>
+</body>
+
+</html>
