@@ -100,7 +100,7 @@ function displayRaceRepartition(stateName) {
       };
     if (document.getElementById("Toutage").checked === true) {
           //exemple//
-          aage = 0;
+          age = 0;
       } else if(document.getElementById("Mineur").checked === true){
           age = 1;
 

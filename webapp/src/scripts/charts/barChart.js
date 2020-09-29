@@ -17,8 +17,16 @@ races.set("Natif",0.7);
 console.log(races);
 
 var armed = 0;
+
+// default checked button
+
 function getdifferenceRaces() {
     var dataRaces = new Map();
+    
+    if (armed === 0){
+        const totalNumberOfShootings = shootings_df.dim()[0];
+        const stateShootingsDf = shootings_df.filter(row => row.get('Ethnie') == key);
+    }
     const totalNumberOfShootings = shootings_df.dim()[0];
     for (var [key, value] of races){
         // récuperer le nombre du mort de cette races
@@ -78,18 +86,30 @@ window.onload = function() {
 
 };
 
-if (document.getElementById("ToutArme").checked === true) {
+function checkButton(){
+    if ((document.getElementById("arme0").checked === true) && (document.getElementById("nonArme0").checked === true)) {
           //exemple//
           armed = 0;
-      } else if(document.getElementById("Arme").checked === true){
+          console.log("helllloooo")
+      } else if(document.getElementById("arme0").checked === true){
           armed = 1;
-
-      } else if (document.getElementById("nonArme").checked === true){
+          console.log(armed);
+      } else if (document.getElementById("nonArme0").checked === true){
 
           armed = 2;
+          console.log(armed);
+      } else {
+        armed = 3;
+        console.log(armed);
       };
-document.getElementById('ToutArme0').addEventListener('click', function() {
-        armed = 0;
+    }   
+
+
+
+       
+document.getElementById('arme0').addEventListener('click', function() {
+        
+        checkButton();
         /*
         var zero = Math.random() < 0.2 ? true : false;
         barChartData.datasets.forEach(function(dataset) {
@@ -102,8 +122,9 @@ document.getElementById('ToutArme0').addEventListener('click', function() {
         window.myBar.update();
 });
 
-document.getElementById('Arme1').addEventListener('click', function() {
-        armed = 0;
+document.getElementById('nonArme0').addEventListener('click', function() {
+        
+        checkButton();
         /*
         var zero = Math.random() < 0.2 ? true : false;
         barChartData.datasets.forEach(function(dataset) {
