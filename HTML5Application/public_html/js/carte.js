@@ -103,15 +103,23 @@ function getStateRaceShootings(stateName, armed) {
             console.log('all arme')
     }
 //    console.log(race_df.toCollection())
-    const perRaceShootings = stateShootingsDf.groupBy('Ethnie').aggregate(group => group.count()).rename('aggregation', 'shootingsCount');
+    var perRaceShootings = stateShootingsDf.groupBy('Ethnie').aggregate(group => group.count()).rename('aggregation', 'shootingsCount');
+//    console.log(perRaceShootings.toArray());
+    perRaceShootings = perRaceShootings.map(row => row.set('shootingsCount', row.get('shootingsCount') / getStateRaceRatio(stateName, row.get('Ethnie'))));
     const labels = perRaceShootings.select('Ethnie'), data = perRaceShootings.select('shootingsCount');
+    console.log(labels.toArray());
+    console.log(data.toArray());
 
 
     return [labels.toArray().flat(), data.toArray().flat()]
 }
 
 function getStateRaceRatio(stateName, Ethnie) {
-    return race_df.filter(row => row.get('Etat') == stateName).select(Ethnie)
+    console.log(race_df.filter(row => row.get('Etat') == stateName).select(Ethnie).toArray()[0][0]);
+ //   if (race_df.filter(row => row.get('Etat') == stateName).select(Ethnie).toArray()[0][0] == 0){
+ //       return 0.015
+ //   }
+    return race_df.filter(row => row.get('Etat') == stateName).select(Ethnie).toArray()[0][0];
 }
 
 function getBackgrounColors(racesList) {
@@ -143,7 +151,7 @@ function displayRaceRepartition(stateName) {
       };
     if (document.getElementById("Toutage").checked === true) {
           //exemple//
-          aage = 0;
+          age = 0;
       } else if(document.getElementById("Mineur").checked === true){
           age = 1;
 
@@ -163,6 +171,7 @@ function displayRaceRepartition(stateName) {
     if (chart) {
         chart.destroy();
     }
+    
     chart = new Chart(ctx, {
         type: 'doughnut',
         data: {

@@ -22,13 +22,13 @@ def _preprocess_race_distribution(race_dist_df: pd.DataFrame) -> pd.DataFrame:
     race_dist_df = PreprocessingUtils.map_values(race_dist_df, {'<.01': 0}, minorities)
     race_dist_df[minorities] = race_dist_df[minorities].astype(float)
     race_dist_df['Others'] = (
-            race_dist_df['Native Hawaiian/Other Pacific Islander'] + race_dist_df['Two Or More Races']
+            race_dist_df['Native Hawaiian/Other Pacific Islander'] + race_dist_df['Two Or More Races'] + race_dist_df["American Indian/Alaska Native"]
     )
-    race_dist_df = race_dist_df.drop(['Native Hawaiian/Other Pacific Islander', 'Two Or More Races'], axis=1)
+    race_dist_df = race_dist_df.drop(['Native Hawaiian/Other Pacific Islander', 'Two Or More Races', "American Indian/Alaska Native"], axis=1)
 
     columns_name_translation = {
         "Location": "Code Etat", "State": "Etat", "White": "Blanc", "Black": "Noir", "Hispanic": "Hispanique",
-        "American Indian/Alaska Native": "Natif" , "Asian": "Asiatique", "Others": "Autre"
+        "Asian": "Asiatique", "Others": "Autre"
     }
 
     race_dist_df = PreprocessingUtils.set_columns_names(race_dist_df, columns_name_translation)
@@ -54,7 +54,7 @@ def _preprocess_shootings_data(raw_df: pd.DataFrame) -> pd.DataFrame:
 
     race_column_translation = {
         "White": "Blanc", "Black": "Noir", "Hispanic": "Hispanique", "Asian": "Asiatique",
-        "Native": "Natif", "Other": "Autre",
+        "Native": "Autre", "Other": "Autre",
     }
     df = PreprocessingUtils.map_values(df, race_column_translation, ['race'])
 
