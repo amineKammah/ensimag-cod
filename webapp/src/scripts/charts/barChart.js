@@ -17,7 +17,7 @@ races.set("Natif",0.7);
 console.log(races);
 
 var armed = 0;
-
+var age = 0;
 // default checked button
 
 function getdifferenceRaces() {
@@ -39,6 +39,19 @@ function getdifferenceRaces() {
             default:
                 shootingFilter = shootings_df;
         }
+    switch (age){
+            case 1:
+                // mineur
+                shootingFilter = shootings_df.filter(row => row.get('Age') <= 18);
+                console.log("mineur");
+                break;
+            case 2:
+                // majeur
+                shootingFilter = shootings_df.filter(row => row.get('Age') >= 19);
+                console.log("majeur");
+                break;
+            default:
+    }
     var totalNumberOfShootings = shootingFilter.dim()[0];
     for (var [key, value] of races){
         // récuperer le nombre du mort de cette races
@@ -83,8 +96,8 @@ window.onload = function() {
                             yAxes: [{
                                 ticks: {
 
-                                       min: -20,
-                                       max: 20,
+                                       min: -30,
+                                       max: 40,
                                        callback: function(value){return value+ "%"}
                                     },
                                                                                     scaleLabel: {
@@ -102,10 +115,8 @@ function checkButton(){
     if ((document.getElementById("arme0").checked === true) && (document.getElementById("nonArme0").checked === true)) {
           //exemple//
           armed = 0;
-          console.log("helllloooo")
       } else if(document.getElementById("arme0").checked === true){
           armed = 1;
-          console.log(armed);
       } else if (document.getElementById("nonArme0").checked === true){
 
           armed = 2;
@@ -113,6 +124,18 @@ function checkButton(){
       } else {
         armed = 3;
         console.log(armed);
+      };
+      if ((document.getElementById("mineur0").checked === true) && (document.getElementById("majeur0").checked === true)) {
+          //exemple//
+          age = 0;
+      } else if(document.getElementById("mineur0").checked === true){
+          age = 1;
+      } else if (document.getElementById("majeur0").checked === true){
+
+          age = 2;
+          
+      } else {
+        age = 3;
       };
       dataRaces = getdifferenceRaces();
       barChartData = {
@@ -134,32 +157,27 @@ function checkButton(){
 document.getElementById('arme0').addEventListener('click', function() {
         
         checkButton();
-        /*
-        var zero = Math.random() < 0.2 ? true : false;
-        barChartData.datasets.forEach(function(dataset) {
-                dataset.data = dataset.data.map(function() {
-                        return zero ? 0.0 : randomScalingFactor();
-                });
-
-        });
-         */
         window.myBar.data = barChartData;
         window.myBar.update();
-        console.log("whaat");
 });
 
 document.getElementById('nonArme0').addEventListener('click', function() {
         
         checkButton();
-        /*
-        var zero = Math.random() < 0.2 ? true : false;
-        barChartData.datasets.forEach(function(dataset) {
-                dataset.data = dataset.data.map(function() {
-                        return zero ? 0.0 : randomScalingFactor();
-                });
+        window.myBar.data = barChartData;
+        window.myBar.update();
+});
 
-        });
-         */
+document.getElementById('mineur0').addEventListener('click', function() {
+        
+        checkButton();
+        window.myBar.data = barChartData;
+        window.myBar.update();
+});
+
+document.getElementById('majeur0').addEventListener('click', function() {
+        
+        checkButton();
         window.myBar.data = barChartData;
         window.myBar.update();
 });
