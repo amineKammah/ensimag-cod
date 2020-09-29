@@ -9,22 +9,24 @@ class Map {
 
     render() {
         this.drawMap();
-        Map.displayRaceRepartition("Texas");
+        Map.drawRaceDoughnut("Texas");
     }
 
-    static getMapIntensity(d) {
-        return d > 700 ? '#800026' :
-            d > 350 ? '#BD0026' :
-                d > 200 ? '#E31A1C' :
-                    d > 100 ? '#FC4E2A' :
-                        d > 50 ? '#FD8D3C' :
-                            d > 20 ? '#FEB24C' :
-                                d > 10 ? '#FED976' :
+    static getMapIntensity(numberOfShootings) {
+        /* Returns the corresponding intensity color to the number of shootings */
+        return numberOfShootings > 700 ? '#800026' :
+            numberOfShootings > 350 ? '#BD0026' :
+                numberOfShootings > 200 ? '#E31A1C' :
+                    numberOfShootings > 100 ? '#FC4E2A' :
+                        numberOfShootings > 50 ? '#FD8D3C' :
+                            numberOfShootings > 20 ? '#FEB24C' :
+                                numberOfShootings > 10 ? '#FED976' :
                                     '#FFEDA0';
     }
 
     static getBackgrounColors(racesList) {
-        // Takes the races present in a state and output their corresponding background color
+        /* Takes an array of races and output their corresponding background color */
+
         const raceColors = {
             "Blanc": "#5b2c6f", "Noir": "#d35400", "Hispanique": "#5499c7 ",
             "Asiatique": "#48c9b0", "Natif": "#2e4053", "Autre": "#f4d03f"
@@ -37,11 +39,16 @@ class Map {
     }
 
     static getStyle(feature) {
+
+        /* Returns the style of a state */
+
         var numberOfShootings = 0;
+
         if (feature.properties) {
             const stateName = feature.properties.name;
             numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName);
         }
+
         return {
             weight: 2,
             opacity: 1,
@@ -52,7 +59,10 @@ class Map {
         };
     }
 
-    static displayRaceRepartition(stateName) {
+    static drawRaceDoughnut(stateName) {
+        /* Draws a doughnut representing the repartition of shootings across the different
+        * races present in the state
+        */
 
         //check
         if (document.getElementById("ToutArme").checked === true) {
@@ -80,6 +90,7 @@ class Map {
         const backgroundColor = Map.getBackgrounColors(labels);
 
         if (Map.raceDoughnut) {
+            // Destroys old doughnut before drawing a new one
             Map.raceDoughnut.destroy();
         }
 
@@ -102,6 +113,7 @@ class Map {
     }
 
     static highlightFeature(e) {
+        /* Event Manager */
         var layer = e.target;
     
         layer.setStyle({
@@ -122,19 +134,19 @@ class Map {
     }
     
     static zoomToFeature(e) {
+        /* Event Manager */
         var layer = e.target;
-        Map.displayRaceRepartition(layer.feature.properties.name);
+        Map.drawRaceDoughnut(layer.feature.properties.name);
     }
     
     static onEachFeature(feature, layer) {
+        /* Event Manager */
         layer.on({
             mouseover: Map.highlightFeature,
             mouseout: Map.resetHighlight,
             click: Map.zoomToFeature
         });
     }
-    
-    static raceDoughnut = null;
 
     static geojson = L.geoJson(statesData, {
         style: Map.getStyle,
