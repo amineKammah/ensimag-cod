@@ -82,18 +82,25 @@ export default class DataProcessingUtils {
         );
 
         // divide by state race ratio
-        perRaceShootings = perRaceShootings.map(row => row.set('shootingsCount', row.get('shootingsCount') / race_df.filter(row => row.get('Etat') == stateName).select(row.get('Ethnie')).toArray()[0][0]));
+        perRaceShootings = perRaceShootings.map(
+            row => (
+                row.set('shootingsCount', row.get('shootingsCount') / DataProcessingUtils.getStateRaceRatio(stateName, row.get('Ethnie')))
+            )
+        );
 
-        var labels = perRaceShootings.select('Ethnie'), data = perRaceShootings.select('shootingsCount');
+        var labels = perRaceShootings.select('Ethnie').toArray().flat();
+        var data = perRaceShootings.select('shootingsCount');
 
         // turning the data into percentages
-        var sum = 0;
-        data = data.toArray().flat()
-        data.forEach(element => sum += element);
-        var newData = [];
-        data.forEach(element => newData.push(element * 100 / sum));
+        var sum = data.stat.sum('shootingsCount');
+        var normalizedData = [];
+        data.toArray().flat().forEach(element => normalizedData.push((element * 100 / sum).toFixed(2)));
 
-        return [labels.toArray().flat(), newData]
+        return [labels, normalizedData]
+    }
+
+    static getStateRaceRatio(stateName, ethnie) {
+        return race_df.filter(row => row.get('Etat') == stateName).select(ethnie).toArray()[0][0];
     }
 
     static numberOfShootingsInState(stateName, age, armed) {

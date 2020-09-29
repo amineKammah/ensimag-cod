@@ -178,53 +178,21 @@ function zoomToFeature(e) {
     displayRaceRepartition(stateName);
 }
 
-document.getElementById('ToutArme').addEventListener('click', function() {
-    displayRaceRepartition(stateName);
-    geojson = L.geoJson(statesData, {
-        style: style,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-});
+const filtersIds = ['ToutArme', 'Arme', 'nonArme', 'Toutage', 'Mineur', 'Majeur']
+filtersIds.forEach(id => document.getElementById(id).addEventListener('click', updateMapDoghnut))
 
-document.getElementById('Arme').addEventListener('click', function() {
+function updateMapDoghnut() {
     displayRaceRepartition(stateName);
-    geojson = L.geoJson(statesData, {
-        style: style,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-});
+    updateMapColors();
+}
 
-document.getElementById('nonArme').addEventListener('click', function() {
-    displayRaceRepartition(stateName);
+function updateMapColors(){
+    map.removeLayer(geojson);
     geojson = L.geoJson(statesData, {
         style: style,
         onEachFeature: onEachFeature
     }).addTo(map);
-});
-
-document.getElementById('Toutage').addEventListener('click', function() {
-    displayRaceRepartition(stateName);
-    geojson = L.geoJson(statesData, {
-        style: style,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-});
-
-document.getElementById('Mineur').addEventListener('click', function() {
-    displayRaceRepartition(stateName);
-    geojson = L.geoJson(statesData, {
-        style: style,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-});
-
-document.getElementById('Majeur').addEventListener('click', function() {
-    displayRaceRepartition(stateName);
-    geojson = L.geoJson(statesData, {
-        style: style,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-});
+}
 
 
 function onEachFeature(feature, layer) {
