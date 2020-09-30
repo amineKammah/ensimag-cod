@@ -117,3 +117,9 @@ path.area {
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
+#buttonCommencer{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+}
