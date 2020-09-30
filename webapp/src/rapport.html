@@ -41,6 +41,12 @@ and open the template in the editor.
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 
     <link rel="stylesheet" type="text/css" href="./styles/index.css" />
+   <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+   <style>
+body {
+    font-family: 'Nunito';font-size: 22px;
+}
+   </style>
   </head>
 </head>
 
@@ -78,7 +84,7 @@ and open the template in the editor.
               <path fill-rule="evenodd"
                 d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
             </svg>
-            <small class="text-muted">Ligne animée</small>
+            <small class="text-muted">Evolution temporelle</small>
           </a>
         </li>
         <li class="nav-item" id="button">
@@ -94,11 +100,47 @@ and open the template in the editor.
       </ul>
     </div>
   </nav>
-<div>
-  <h2 style="text-align:center"> <br> <br> Rapport </h2>
-  <h5> <br> <br>  Introduction </h5>
-  <p> &nbsp;&nbsp;&nbsp; Dans le cadre du Challenge Open Data nous avons développé une WebApp, dont le but est de permettre à l’utilisateur la visualisation de manière interactive d’un jeu de données. <br> &nbsp;&nbsp;&nbsp; L’application développée par nos soins s’inscrit dans le cadre des débats et manifestations contre les bavures policières déclenchées par la mort tragique de George Floyd le 25 mai dernier. Elle a pour but de mettre en avant le caractère raciste de la police Américaine. En effet les victimes des tirs de la police américaine sont catégorisés par ethnicité, âge, type d’arme , etc.</p>
+<div style="width:1200px; margin: auto;">
+
+  <h1 style="text-align:center"> <br> <br> <b> Challenge Open Data <br> 3A ISI - équipe 4
+  </b></h1>
+  <p style="font-size:20px;" > <br> Projet réalisé par: </p>
+    <ul>
+  <li style="font-size:20px;">Amalou Naima</li>
+  <li style="font-size:20px;">Guerwane Houda</li>
+  <li style="font-size:20px;">Hafyane Kaoutar</li>
+  <li style="font-size:20px;">Haloui Ali</li>
+  <li style="font-size:20px;">Kammah Mohammad Amine</li>
+    </ul>
+  <h4 ><b> <br>  Introduction </b> </h4>
+  <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp; Dans le cadre du Challenge Open Data nous avons développé une WebApp, dont le but est de permettre à l’utilisateur la visualisation de manière interactive d’un jeu de données. <br> &nbsp;&nbsp;&nbsp; L’application développée par nos soins s’inscrit dans le cadre des débats et manifestations contre les bavures policières déclenchées par la mort tragique de George Floyd le 25 mai dernier. Elle a pour but de mettre en avant le caractère raciste de la police Américaine. En effet les victimes des tirs de la police américaine sont catégorisés par ethnicité, âge, type d’arme , etc.</p>
+  <h4 > <b>Jeu de données </h4>
+  <h5> Source:</b></h5>
+  <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp; Nous avons choisi un jeu de données qui recense tous les tirs de la police Américaine de Février 2015 à Juin 2020, ce jeu de données provient du site <a href="https://github.com/washingtonpost/data-police-shootings?fbclid=IwAR3QTfaUq3kZ1Zzjn3OovNVGtwrRM59cqog8Kdt7HFNndV_xHUDJE_N41iM">The Washington Post <a> et regroupe les informations suivantes : Nom, Age, Ethnie, Lieu, type d’arme portée … <br>
+   &nbsp;&nbsp;&nbsp; Nous avons également utilisé <a href="https://www.kff.org/other/state-indicator/distribution-by-raceethnicity/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D"> un autre jeu de données </a> qui recense les distributions ethniques dans chaque état Américain. </p>
+   <h5> <b>Traitement:</b></h5>
+   <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp; Nous avons appliqué un preprocessing, à l’aide d’un scripte en Python qui utilise la bibliothèque Pandas, à ces jeux de données au format CSV pour n’en garder que les informations pertinentes. Nous avons donc supprimé quelques colonnes que nous avons jugées moins importantes, mergé des colonnes de la distribution ethnique qui sont minoritaires, remplacé les valeur “N/A” et “&lt;0.01” par 0 et finalement nous avons traduit la totalité des jeux de données en Français pour avoir deux nouveaux fichiers Json traités et prêts à être utilisés. <br> &nbsp;&nbsp;&nbsp; Ensuite nous utilisons ces fichiers Json pour en extraire les données qu’on utilise dans nos graphiques. A l’aide des programmes présents dans la class dataTreatment, nous calculons le nombres de victimes par état et selon les filtres choisis par l’utilisateur.</p>
+   <h4> <b>Visualisation:</b></h4>
+   <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp;Les jeux de données choisis sont sous la forme de deux grandes matrices avec plusieurs informations sans pour autant être significatifs, d'où l’idée de créer les graphiques pour permettre une visualisation plus constructive pour l’utilisateur.
+<br>&nbsp;&nbsp;&nbsp;Les victimes sont regroupées par ethnicité et par état pour ainsi mettre en avant le caractère raciste de la police américaine.
+<br>&nbsp;&nbsp;&nbsp;L’utilisateur peut également filtrer les résultats selon plusieurs critères: </p>
+<ul>
+<li style="font-size:20px;">Port d’arme</li>
+<li style="font-size:20px;"> Age</li>
+<li style="font-size:20px;">Signe de maladie mentale</li>
+<li style="font-size:20px;">En cas de fuite</li>
+</ul>
+     <h5> <b>Interface:</b></h5>
+     <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp; Nous nous sommes fixés comme objectif de créer une interface interactive et assez intuitive afin de permettre une navigation fluide à l’utilisateur. En premier temps, l’utilisateur se retrouve dans une page d'accueil qui contient une description qui le mets dans le contexte de notre page web. Il peut ensuite cliquer sur le bouton “Commencer” qui le mène directement dans la page de Statistiques générales où nous retrouvons un graphique qui met en avant pour chaque ethnie aux Etats Unis la différence entre la proportion de sa démographie et du nombre de victimes qu’elle compte. L’utilisateur a le choix entre plusieurs filtres qui lui permettent de visualiser les données selon son choix.</p>
+     <h5> <b>La carte:</b></h5>
+     <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp; Nous retrouvons dans cette partie une carte interactive des Etats Unis, divisée par état. La coloration de chaque état est proportionnelle au nombre de mort. Nous retrouvons également dans cette section deux filtres : Mineur/Majeur et Non Armé/Armé. Ainsi choisissant d’appliquer un filtre, ou non, on peut appuyer sur un des états et on retrouve un graphique sous forme de Donut qui relate la répartition des tirs proportionnés à leurs ethnies.</p
+       <h5> <b>Evolution temporelle:</b></h5>
+       <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp;Ce graphique nous permet de voir au fil de l’eau l'évolution du rapport de nombre de mort avec la démographie de chaque ethnie. Il reprends les valeurs mensuelles des nombres de mort par ethnie de Février 2015 à Juin 2020. <br> <br> <br> <br></p>
+
+
+
 </div>
+  
   <!-- Footer -->
   <footer id="footer" class="bg-black small text-center text-white-50">
 
