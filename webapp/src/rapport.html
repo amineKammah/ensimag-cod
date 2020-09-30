@@ -41,6 +41,12 @@ and open the template in the editor.
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 
     <link rel="stylesheet" type="text/css" href="./styles/index.css" />
+    <style>
+    .serif {
+     font-family: "Times New Roman", Times, serif;
+     }
+
+</style>
   </head>
 </head>
 
@@ -98,7 +104,40 @@ and open the template in the editor.
   <h2 style="text-align:center"> <br> <br> Rapport </h2>
   <h5> <br> <br>  Introduction </h5>
   <p> &nbsp;&nbsp;&nbsp; Dans le cadre du Challenge Open Data nous avons développé une WebApp, dont le but est de permettre à l’utilisateur la visualisation de manière interactive d’un jeu de données. <br> &nbsp;&nbsp;&nbsp; L’application développée par nos soins s’inscrit dans le cadre des débats et manifestations contre les bavures policières déclenchées par la mort tragique de George Floyd le 25 mai dernier. Elle a pour but de mettre en avant le caractère raciste de la police Américaine. En effet les victimes des tirs de la police américaine sont catégorisés par ethnicité, âge, type d’arme , etc.</p>
+<div style="width:1100px; margin: auto;">
+
+  <h1 class="serif" style="text-align:center"> <br> <br> <b> Challenge Open Data <br> 3A ISI - équipe 4
+  </b></h1>
+  <p class="serif" style="font-size:20px;" > <br> Projet réalisé par: </p>
+    <ul>
+  <li class="serif" style="font-size:20px;">Amalou Naima</li>
+  <li class="serif" style="font-size:20px;">Guerwane Houda</li>
+  <li class="serif" style="font-size:20px;">Hafyane Kaoutar</li>
+  <li class="serif" style="font-size:20px;">Haloui Ali</li>
+  <li class="serif" style="font-size:20px;">Kammah Mohammad Amine</li>
+    </ul>
+  <h4 class="serif"><b> <br>  Introduction </b> </h4>
+  <p class="serif" style="font-size:20px;" > &nbsp;&nbsp;&nbsp; Dans le cadre du Challenge Open Data nous avons développé une WebApp, dont le but est de permettre à l’utilisateur la visualisation de manière interactive d’un jeu de données. <br> &nbsp;&nbsp;&nbsp; L’application développée par nos soins s’inscrit dans le cadre des débats et manifestations contre les bavures policières déclenchées par la mort tragique de George Floyd le 25 mai dernier. Elle a pour but de mettre en avant le caractère raciste de la police Américaine. En effet les victimes des tirs de la police américaine sont catégorisés par ethnicité, âge, type d’arme , etc.</p>
+  <h4  class="serif"> <b>Jeu de données </h4>
+  <h5  class="serif"> Source:</b></h5>
+  <p class="serif" style="font-size:20px;" > &nbsp;&nbsp;&nbsp; Nous avons choisi un jeu de données qui recense tous les tirs de la police Américaine du Février 2015 au Juin 2020 , ce jeu de données provient du site <a href="https://github.com/washingtonpost/data-police-shootings?fbclid=IwAR3QTfaUq3kZ1Zzjn3OovNVGtwrRM59cqog8Kdt7HFNndV_xHUDJE_N41iM">The Washington Post <a> et regroupe les informations suivantes : Nom, Age, Ethnie, Lieu, type d’arme portée … <br>
+   &nbsp;&nbsp;&nbsp; Nous avons également utilisé <a href="https://www.kff.org/other/state-indicator/distribution-by-raceethnicity/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D"> un autre jeu de données </a> qui recense les distributions ethniques dans chaque état Américain. </p>
+   <h5  class="serif"> <b>Traitement:</b></h5>
+   <p class="serif" style="font-size:20px;" > &nbsp;&nbsp;&nbsp; Nous avons appliqué un preprocessing, à l’aide d’un scripte en Python qui utilise la bibliothèque Pandas, à ces jeux de données au format CSV pour n’en garder que les informations pertinentes. Nous avons donc supprimé quelques colonnes que nous avons jugées moins importantes, mergé des colonnes de la distribution ethnique qui sont minoritaires, remplacé les valeur “N/A” et “&lt;0.01” par 0 et finalement nous avons traduit la totalité des jeux de données en Français pour avoir deux nouveaux fichiers Json traités et prêts à être utilisés. <br> &nbsp;&nbsp;&nbsp; Ensuite nous utilisons ces fichiers Json pour en extraire les données qu’on utilise dans nos graphiques. A l’aide des programmes présent dans la class dataTreatment, nous calculons le nombres de victimes par état et selon les filtres choisis par l’utilisateur.</p>
+   <h5  class="serif"> <b>Visualisation:</b></h5>
+   <p class="serif" style="font-size:20px;" > &nbsp;&nbsp;&nbsp;Le jeux de données choisis sont sous la forme de deux grandes matrices avec plusieurs informations sans pour autant être significatifs, d'où l’idée de créer les graphiques pour permettre une visualisation plus constructive pour l’utilisateur.
+<br>&nbsp;&nbsp;&nbsp;Les victimes sont regroupées par ethnicité et par état pour ainsi mettre en avant le caractère raciste de la police américaine.
+<br>&nbsp;&nbsp;&nbsp;L’utilisateur peut également filtrer les résultats selon plusieurs critères: </p>
+<ul>
+<li class="serif" style="font-size:20px;">Port d’arme</li>
+<li class="serif" style="font-size:20px;"> Age</li>
+<li class="serif" style="font-size:20px;">Signe de maladie mentale</li>
+<li class="serif" style="font-size:20px;">En cas de fuite</li>
+</ul>
+
+
 </div>
+  
   <!-- Footer -->
   <footer id="footer" class="bg-black small text-center text-white-50">
 
