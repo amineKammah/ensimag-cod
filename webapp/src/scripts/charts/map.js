@@ -81,6 +81,7 @@ class MapPlotter {
             MapPlotter.raceDoughnut.destroy();
         }
 
+
         MapPlotter.raceDoughnut = new Chart(ctx, {
             type: 'doughnut',
             data: {

@@ -11,7 +11,7 @@ export default class DataProcessingUtils {
         * To be used with the animated lines chart
         */
         const races = shootings_df.unique('Ethnie').toArray().flat();
-      
+
         let selectedDf = shootings_df.select('Annee', 'Mois', 'Ethnie');
         selectedDf = selectedDf.cast('Annee', String);
         selectedDf = selectedDf.cast('Mois', String);
@@ -20,8 +20,8 @@ export default class DataProcessingUtils {
         // Count the number of shootings per date per race
         selectedDf = (
             selectedDf.groupBy('Date', 'Ethnie')
-            .aggregate(group => group.count())
-            .rename('aggregation', 'groupCount')
+                .aggregate(group => group.count())
+                .rename('aggregation', 'groupCount')
         )
         
         // Race ratios in the US
@@ -34,10 +34,10 @@ export default class DataProcessingUtils {
         const maxValue = selectedDf.stat.max('groupCount');
         // Min and max values to setup x-axis
         const minDate = selectedDf.stat.min('Date'), maxDate = selectedDf.stat.max('Date')
-      
+
         const perRaceData = []
         for (const race of races) {
-          perRaceData.push(selectedDf.filter(row => row.get("Ethnie") == race).toCollection());
+            perRaceData.push(selectedDf.filter(row => row.get("Ethnie") == race).toCollection());
         }
       
         return [perRaceData, maxValue, minDate, maxDate]
@@ -76,12 +76,18 @@ export default class DataProcessingUtils {
             default:
                 console.log('all arme')
         }
-
         // Get number of shootings per race
         var perRaceShootings = (
             stateShootingsDf.groupBy('Ethnie')
-            .aggregate(group => group.count())
-            .rename('aggregation', 'shootingsCount')
+                .aggregate(group => group.count())
+                .rename('aggregation', 'shootingsCount')
+        );
+
+        // divide by state race ratio
+        perRaceShootings = perRaceShootings.map(
+            row => (
+                row.set('shootingsCount', row.get('shootingsCount') / DataProcessingUtils.getStateRaceRatio(stateName, row.get('Ethnie')))
+            )
         );
 
         // divide by state race ratio
