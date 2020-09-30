@@ -33,8 +33,8 @@ class MapPlotter {
         /* Takes an array of races and output their corresponding background color */
 
         const raceColors = {
-            "Blanc": "#5b2c6f", "Noir": "#d35400", "Hispanique": "#5499c7 ",
-            "Asiatique": "#48c9b0", "Natif": "#2e4053", "Autre": "#f4d03f"
+            "Blanc": "#024E82", "Noir": "#8F8F8F", "Hispanique": "#D55E00",
+            "Asiatique": "#000000", "Natif": "#56B4E9", "Autre": "#F0E442"
         };
         const backgroundColors = [];
 

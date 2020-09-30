@@ -117,3 +117,14 @@ path.area {
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
+#buttonCommencer{
+    background-color:   #ecf0f1  ;
+    border: none;
+    color:  #273746;
+}
+
+#checkboxes{
+     background-color:  white;
+     
+}
