@@ -46,7 +46,7 @@ window.onload = function () {
         options: {
             title: {
                 display: true,
-                text: 'Différence entre le pourcentage de la population et de la victime'
+                text: "Différence entre la proportion de chaque ethnie et le nombre de victimes qu'elle compte"
             },
             scales: {
                 yAxes: [{
