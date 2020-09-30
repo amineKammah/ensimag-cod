@@ -61,6 +61,7 @@ class AnimatedLines {
     x.domain([this.beginDate, this.endDate]);
     y.domain([0, this.maxValue]).nice();
 
+    document.getElementById("svglines").innerHTML = ""
     // Add an SVG element with the desired dimensions and margin.
     var svg = d3.select("#svglines").append("svg")
       .attr("width", width + margin.left + margin.right)
