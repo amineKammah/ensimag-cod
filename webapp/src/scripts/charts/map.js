@@ -89,27 +89,27 @@ function getBackgrounColors(racesList) {
 var chart;
 function displayRaceRepartition(stateName) {
 
-  //check
-  if (document.getElementById("ToutArme").checked === true) {
-          //exemple//
-          armed = 0;
-      } else if(document.getElementById("Arme").checked === true){
-          armed = 1;
+    //check
+    if (document.getElementById("ToutArme").checked === true) {
+        //exemple//
+        armed = 0;
+    } else if (document.getElementById("Arme").checked === true) {
+        armed = 1;
 
-      } else if (document.getElementById("nonArme").checked === true){
+    } else if (document.getElementById("nonArme").checked === true) {
 
-          armed = 2;
-      };
+        armed = 2;
+    };
     if (document.getElementById("Toutage").checked === true) {
-          //exemple//
-          age = 0;
-      } else if(document.getElementById("Mineur").checked === true){
-          age = 1;
+        //exemple//
+        age = 0;
+    } else if (document.getElementById("Mineur").checked === true) {
+        age = 1;
 
-      } else if (document.getElementById("Majeur").checked === true){
+    } else if (document.getElementById("Majeur").checked === true) {
 
-          age = 2;
-      };
+        age = 2;
+    };
     console.log(armed);
     var ctx = document.getElementById('raceRepartitionChart');
     if (ctx != "") {
@@ -137,9 +137,9 @@ function displayRaceRepartition(stateName) {
             title: {
                 display: true,
                 text: stateName,
-                tooltips: {enabled: false},
-                mousemove: {mode: null},
-                mouseout: {mode: null},
+                tooltips: { enabled: false },
+                mousemove: { mode: null },
+                mouseout: { mode: null },
             }
         }
     });
@@ -186,7 +186,7 @@ function updateMapDoghnut() {
     updateMapColors();
 }
 
-function updateMapColors(){
+function updateMapColors() {
     map.removeLayer(geojson);
     geojson = L.geoJson(statesData, {
         style: style,

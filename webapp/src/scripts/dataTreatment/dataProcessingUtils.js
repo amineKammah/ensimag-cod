@@ -20,8 +20,8 @@ export default class DataProcessingUtils {
         // Count the number of shootings per date per race
         selectedDf = (
             selectedDf.groupBy('Date', 'Ethnie')
-            .aggregate(group => group.count())
-            .rename('aggregation', 'groupCount')
+                .aggregate(group => group.count())
+                .rename('aggregation', 'groupCount')
         )
 
         // Race percentages in the US
@@ -35,11 +35,11 @@ export default class DataProcessingUtils {
 
         const perRaceData = []
         for (const race of races) {
-          perRaceData.push(selectedDf.filter(row => row.get("Ethnie") == race).toCollection());
+            perRaceData.push(selectedDf.filter(row => row.get("Ethnie") == race).toCollection());
         }
 
         return [perRaceData, maxValue]
-      }
+    }
 
     static prepDoughnutData(stateName, age, armed) {
         /*
@@ -77,8 +77,8 @@ export default class DataProcessingUtils {
         // Get number of shootings per race
         var perRaceShootings = (
             stateShootingsDf.groupBy('Ethnie')
-            .aggregate(group => group.count())
-            .rename('aggregation', 'shootingsCount')
+                .aggregate(group => group.count())
+                .rename('aggregation', 'shootingsCount')
         );
 
         // divide by state race ratio

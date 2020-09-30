@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Title</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles/index.css">
-  </head>
-  <body>
-    <div class="wrapper">
-      <h1>Graphe général</h1>
+
+<head>
+  <title>Title</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles/index.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>Graphe général</h1>
 
 
 
-<canvas id="bar-chart-grouped" width="800" height="450"></canvas>
-    </div>
+    <canvas id="bar-chart-grouped" width="800" height="450"></canvas>
+  </div>
 
-    <script >
+  <script>
     new Chart(document.getElementById("bar-chart-grouped"), {
-        type: 'bar',
-        data: {
-          labels: ["2015","2016","2017","2018","2019","2020"],
-          datasets: [
-            {
-              label: "Asiatique",
-              backgroundColor: "#3e95cd",
-              data: [0.908147,0.973015,1.037883,1.362221,1.232486,0.518941]
-            }, {
-              label: "Blanc",
-              backgroundColor: "#8e5ea2",
-              data: [2.378719,2.239920,2.196845,2.172914,1.933606,0.928514]
-            }, {
-              label: "Hispanique",
-              backgroundColor: "#3cba9f",
-              data: [3.140061,2.920987,3.267855,3.012268,2.975756,1.150139]
-            }, {
-              label: "Noir",
-              backgroundColor: "#e8c3b9",
-              data: [6.395003,5.800119,5.552251,5.676185,6.196708,2.553044]
-            }, {
-              label: "Natif",
-              backgroundColor: "#c45850",
-              data: [3.919861,6.968641,9.581882,6.533101,5.662021,1.306620]
-            }, {
-              label: "Autre",
-              backgroundColor: "#8fff",
-              data: [2.406932,1.765083,0.962773,0.641849,1.444159,0.481386]
-            }
-          ]
-        },
-        options: {
-          title: {
-            display: true,
-            text: 'Tirs de la police Americaine'
+      type: 'bar',
+      data: {
+        labels: ["2015", "2016", "2017", "2018", "2019", "2020"],
+        datasets: [
+          {
+            label: "Asiatique",
+            backgroundColor: "#3e95cd",
+            data: [0.908147, 0.973015, 1.037883, 1.362221, 1.232486, 0.518941]
+          }, {
+            label: "Blanc",
+            backgroundColor: "#8e5ea2",
+            data: [2.378719, 2.239920, 2.196845, 2.172914, 1.933606, 0.928514]
+          }, {
+            label: "Hispanique",
+            backgroundColor: "#3cba9f",
+            data: [3.140061, 2.920987, 3.267855, 3.012268, 2.975756, 1.150139]
+          }, {
+            label: "Noir",
+            backgroundColor: "#e8c3b9",
+            data: [6.395003, 5.800119, 5.552251, 5.676185, 6.196708, 2.553044]
+          }, {
+            label: "Natif",
+            backgroundColor: "#c45850",
+            data: [3.919861, 6.968641, 9.581882, 6.533101, 5.662021, 1.306620]
+          }, {
+            label: "Autre",
+            backgroundColor: "#8fff",
+            data: [2.406932, 1.765083, 0.962773, 0.641849, 1.444159, 0.481386]
           }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Tirs de la police Americaine'
         }
+      }
     });
 
-    </script>
-  </body>
+  </script>
+</body>
+
 </html>

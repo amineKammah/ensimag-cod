@@ -128,18 +128,18 @@ function drawLines() {
 
 
   var lineLegend = svg.selectAll(".lineLegend").data(labels)
-      .enter().append("g")
-      .attr("class","lineLegend")
-      .attr("transform", function (d,i) {
-              return "translate(" + width + "," + (i*20)+")";
-          });
+    .enter().append("g")
+    .attr("class", "lineLegend")
+    .attr("transform", function (d, i) {
+      return "translate(" + width + "," + (i * 20) + ")";
+    });
 
-  lineLegend.append("text").text(function (d) {return d;})
-      .attr("transform", "translate(15,9)"); //align texts with boxes
+  lineLegend.append("text").text(function (d) { return d; })
+    .attr("transform", "translate(15,9)"); //align texts with boxes
 
   lineLegend.append("rect")
-      .attr("fill", (race, _)  => colors[race])
-      .attr("width", 10).attr("height", 10);
+    .attr("fill", (race, _) => colors[race])
+    .attr("width", 10).attr("height", 10);
 }
 
 init();
