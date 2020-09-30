@@ -1,3 +1,4 @@
+import { Map } from 'core-js';
 import dataProcessingUtils from '../dataTreatment/dataProcessingUtils';
 import statesData from '../dataTreatment/us-states';
 
@@ -8,8 +9,11 @@ class MapPlotter {
     */
 
     render() {
+        MapPlotter.setUpFilteringButtons();
         MapPlotter.drawMap();
-        MapPlotter.drawRaceDoughnut("Texas");
+
+        MapPlotter.currentStateName = 'Texas';
+        MapPlotter.drawRaceDoughnut();
     }
 
     static getMapIntensity(numberOfShootings) {
@@ -38,7 +42,7 @@ class MapPlotter {
         return backgroundColors;
     }
 
-    static drawRaceDoughnut(stateName) {
+    static drawRaceDoughnut() {
         /* Draws a doughnut representing the repartition of shootings across the different
         * races present in the state on the right hand side of the map.
         */
@@ -46,18 +50,18 @@ class MapPlotter {
         //check
         if (document.getElementById("ToutArme").checked === true) {
             //exemple//
-            armed = 0;
+            MapPlotter.armed = 0;
         } else if (document.getElementById("Arme").checked === true) {
-            armed = 1;
-        } else if (document.getElementById("nonArme").checked === true) {
-            armed = 2;
+            MapPlotter.armed = 1;
+        } else if (document.getElementById("NonArme").checked === true) {
+            MapPlotter.armed = 2;
         };
-        if (document.getElementById("Toutage").checked === true) {
-            aage = 0;
+        if (document.getElementById("ToutAge").checked === true) {
+            MapPlotter.age = 0;
         } else if (document.getElementById("Mineur").checked === true) {
-            age = 1;
+            MapPlotter.age = 1;
         } else if (document.getElementById("Majeur").checked === true) {
-            age = 2;
+            MapPlotter.age = 2;
         };
 
         var ctx = document.getElementById('raceRepartitionChart');
@@ -65,7 +69,7 @@ class MapPlotter {
             document.getElementById('raceRepartitionChart').innerHTML = "";
         }
 
-        const [labels, data] = dataProcessingUtils.prepDoughnutData(stateName);
+        const [labels, data] = dataProcessingUtils.prepDoughnutData(MapPlotter.currentStateName, MapPlotter.age, MapPlotter.armed);
         const backgroundColor = MapPlotter.getBackgroundColors(labels);
 
         if (MapPlotter.raceDoughnut) {
@@ -85,10 +89,25 @@ class MapPlotter {
             options: {
                 title: {
                     display: true,
-                    text: stateName,
+                    text: MapPlotter.currentStateName,
                 }
             }
         });
+    }
+
+    static setUpFilteringButtons() {
+        const filtersIds = ['ToutArme', 'Arme', 'NonArme', 'ToutAge', 'Mineur', 'Majeur'];
+        filtersIds.forEach(id => document.getElementById(id).addEventListener('click', MapPlotter.updateMapDoughnut));
+    }
+
+    static updateMapDoughnut() {
+        MapPlotter.drawRaceDoughnut();
+        MapPlotter.updateMapColors();
+    }
+
+    static updateMapColors() {
+        MapPlotter.map.removeLayer(MapPlotter.geojson);
+        MapPlotter.setupGeoJson(map);
     }
 
     static getStyle(feature) {
@@ -96,8 +115,7 @@ class MapPlotter {
         var numberOfShootings = 0;
 
         if (feature.properties) {
-            const stateName = feature.properties.name;
-            numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName);
+            numberOfShootings = dataProcessingUtils.numberOfShootingsInState(feature.properties.name);
         }
 
         return {
@@ -133,8 +151,8 @@ class MapPlotter {
     
     static zoomToFeature(e) {
         /* Event Manager */
-        var layer = e.target;
-        MapPlotter.drawRaceDoughnut(layer.feature.properties.name);
+        MapPlotter.currentStateName = e.target.feature.properties.name;
+        MapPlotter.drawRaceDoughnut();
     }
     
     static onEachFeature(feature, layer) {
@@ -146,7 +164,7 @@ class MapPlotter {
         });
     }
 
-    static setupMapControl(map){
+    static setupMapControl(){
         /* Setup event manager */
         var info = L.control();
         // creates Dom elements for the layer, add them to map panes
@@ -165,23 +183,23 @@ class MapPlotter {
             this._div.innerHTML = '<h4> Le nombre du mort </h4>' + info
         };
 
-        info.addTo(map);
+        info.addTo(MapPlotter.map);
 
         MapPlotter.info = info;
     }
 
-    static setupGeoJson(map) {
+    static setupGeoJson() {
         /* Defines the geographic borders of the states */
         var geojson = L.geoJson(statesData, {
             style: MapPlotter.getStyle,
             onEachFeature: MapPlotter.onEachFeature
         });
 
-        geojson.addTo(map);
+        geojson.addTo(MapPlotter.map);
         MapPlotter.geojson = geojson;
     }
 
-    static setupLegend(map) {
+    static setupLegend() {
         /* Add a legend to the map */
         var legend = L.control({ position: 'bottomright' });
         
@@ -206,25 +224,25 @@ class MapPlotter {
             return div;
         };
         
-        legend.addTo(map);
+        legend.addTo(MapPlotter.map);
     }
 
     static drawMap() {
-        var map = L.map('map').setView([37.8, -96], 4);
+        MapPlotter.map = L.map('map').setView([37.8, -96], 4);
         L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=i8upOzPaFmUXM0tH6yA4',
             {
                 maxZoom: 18,
                 attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
                 tileSize: 512,
                 zoomOffset: -1
-            }).addTo(map);
+            }).addTo(MapPlotter.map);
 
 
-        MapPlotter.setupMapControl(map);
-        MapPlotter.setupGeoJson(map);
-        MapPlotter.setupLegend(map);
+        MapPlotter.setupMapControl();
+        MapPlotter.setupGeoJson();
+        MapPlotter.setupLegend();
         
-        map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+        MapPlotter.map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
     }
 }
 

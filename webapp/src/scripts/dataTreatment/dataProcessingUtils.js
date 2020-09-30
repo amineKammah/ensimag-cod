@@ -43,33 +43,97 @@ export default class DataProcessingUtils {
         return [perRaceData, maxValue, minDate, maxDate]
       }
 
-    static prepDoughnutData(stateName) {
+      static prepDoughnutData(stateName, age, armed) {
         /*
-        * Outputs a collection of the numbers of shootings per race in a specific state
+        * Outputs the number of shootings per race in a specific state
         * To be used to draw a Doughnut.
         */
 
         // Keep shootings that happened in `stateName`
-        const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+        var stateShootingsDf;
+        switch (age) {
+            case 1:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+                console.log('mineur')
+                break;
+            case 2:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+                console.log('majeur')
+                break;
+            default:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+                console.log('all pour age')
+        }
+        switch (armed) {
+            case 2:
+                stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') == 'Non Arme');
+                console.log('non arme')
+                break;
+            case 1:
+                stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') != 'Non Arme');
+                console.log('arme')
+                break;
+            default:
+                console.log('all arme');
+        }
+
+        console.log(stateShootingsDf.dim())
         // Get number of shootings per race
-        const perRaceShootings = (
+        var perRaceShootings = (
             stateShootingsDf.groupBy('Ethnie')
             .aggregate(group => group.count())
             .rename('aggregation', 'shootingsCount')
         );
 
-        const labels = perRaceShootings.select('Ethnie'), data = perRaceShootings.select('shootingsCount');
-    
-        return [labels.toArray().flat(), data.toArray().flat()]
+        // divide by state race ratio
+        perRaceShootings = perRaceShootings.map(
+            row => (
+                row.set('shootingsCount', row.get('shootingsCount') * (1 - DataProcessingUtils.getStateRaceRatio(stateName, row.get('Ethnie'))))
+            )
+        );
+
+        var labels = perRaceShootings.select('Ethnie').toArray().flat();
+        var data = perRaceShootings.select('shootingsCount');
+
+        // turning the data into percentages
+        var sum = data.stat.sum('shootingsCount');
+        var normalizedData = [];
+        data.toArray().flat().forEach(element => normalizedData.push((element * 100 / sum).toFixed(2)));
+        console.log(normalizedData)
+        return [labels, normalizedData]
     }
 
-    static numberOfShootingsInState(stateName) {
+    static getStateRaceRatio(stateName, ethnie) {
+        return race_df.filter(row => row.get('Etat') == stateName).select(ethnie).toArray()[0][0];
+    }
+
+    static numberOfShootingsInState(stateName, age, armed) {
         /*
-        * Outputs the total number of shootings in a state
+        * Number of shootings in a state
         * to be displayed in the top right side of the map
         */
 
-        const stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+        var stateShootingsDf;
+
+        switch (age) {
+            case 1:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName && row.get('Age') <= 18);
+                break;
+            case 2:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName && row.get('Age') >= 19);
+                break;
+            default:
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+        }
+        switch (armed) {
+            case 2:
+                stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') == 'Non Arme');
+                break;
+            case 1:
+                stateShootingsDf = stateShootingsDf.filter(row => row.get('Categorie arme') != 'Non Arme');
+                break;
+        }
+
         return stateShootingsDf.dim()[0]
     }
 }
