@@ -6,7 +6,7 @@
 
 ### To preprocess the files (Already Done):
 - Install pandas: `pip install pandas`.
-- Exectue `python preprocessing/preprocessor.py`.
+- Exectue `python3 preprocessing/preprocessor.py`.
 
 ### To run the project in developpement mode:
 - Browse to webapp: `cd webapp`.
