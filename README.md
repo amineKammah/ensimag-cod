@@ -1,14 +1,21 @@
 # ensimag-cod
 
-### To preprocess the files:
+### To open the website:
+- Browse to webapp/dist: `cd webapp/dist`.
+- Open `index.html` in a web browser.
+
+### To preprocess the files (Already Done):
 - Install pandas: `pip install pandas`.
 - Exectue `python preprocessing/preprocessor.py`.
 
-### To run the project:
-- Make sure the preprocessing is done (`data/preprocessed_dataset.json` is present).
-- Browse to HTML5Application: `cd HTML5Application`.
+### To run the project in developpement mode:
+- Browse to webapp: `cd webapp`.
 - Install parcel globally: `sudo npm install -g parcel-bundler`.
 - Install dependencies using npm: `npm install`.
 - Run `npm run dev`.
 
-
+### To rebuild the project:
+- Browse to webapp: `cd webapp`.
+- Install dependencies using npm if not already installed: `npm install`.
+- Run `npm run build`.
+- Browse to dist to find the compiled version: `cd dist`.
