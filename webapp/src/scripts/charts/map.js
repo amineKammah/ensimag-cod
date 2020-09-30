@@ -10,10 +10,12 @@ class MapPlotter {
 
     render() {
         MapPlotter.setUpFilteringButtons();
-        MapPlotter.drawMap();
-
+        MapPlotter.readFiltersValues();
+        
         MapPlotter.currentStateName = 'Texas';
         MapPlotter.drawRaceDoughnut();
+
+        MapPlotter.drawMap();
     }
 
     static getMapIntensity(numberOfShootings) {
@@ -42,14 +44,8 @@ class MapPlotter {
         return backgroundColors;
     }
 
-    static drawRaceDoughnut() {
-        /* Draws a doughnut representing the repartition of shootings across the different
-        * races present in the state on the right hand side of the map.
-        */
-
-        //check
+    static readFiltersValues() {
         if (document.getElementById("ToutArme").checked === true) {
-            //exemple//
             MapPlotter.armed = 0;
         } else if (document.getElementById("Arme").checked === true) {
             MapPlotter.armed = 1;
@@ -63,6 +59,14 @@ class MapPlotter {
         } else if (document.getElementById("Majeur").checked === true) {
             MapPlotter.age = 2;
         };
+
+    }
+
+    static drawRaceDoughnut() {
+        /* 
+        * Draws a doughnut representing the repartition of shootings across the different
+        * races present in the state on the right hand side of the map.
+        */
 
         var ctx = document.getElementById('raceRepartitionChart');
         if (ctx != "") {
@@ -101,11 +105,15 @@ class MapPlotter {
     }
 
     static updateMapDoughnut() {
+        MapPlotter.readFiltersValues();
+
         MapPlotter.drawRaceDoughnut();
         MapPlotter.updateMapColors();
     }
 
     static updateMapColors() {
+        MapPlotter.readFiltersValues();
+        
         MapPlotter.map.removeLayer(MapPlotter.geojson);
         MapPlotter.setupGeoJson(map);
     }
@@ -115,7 +123,7 @@ class MapPlotter {
         var numberOfShootings = 0;
 
         if (feature.properties) {
-            numberOfShootings = dataProcessingUtils.numberOfShootingsInState(feature.properties.name);
+            numberOfShootings = dataProcessingUtils.numberOfShootingsInState(feature.properties.name, MapPlotter.age, MapPlotter.armed);
         }
 
         return {

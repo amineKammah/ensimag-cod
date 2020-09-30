@@ -53,11 +53,11 @@ export default class DataProcessingUtils {
         var stateShootingsDf;
         switch (age) {
             case 1:
-                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName && row.get('Age') <= 18);
                 console.log('mineur')
                 break;
             case 2:
-                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName);
+                stateShootingsDf = shootings_df.filter(row => row.get('Etat') == stateName && row.get('Age') >= 19);
                 console.log('majeur')
                 break;
             default:
@@ -74,10 +74,9 @@ export default class DataProcessingUtils {
                 console.log('arme')
                 break;
             default:
-                console.log('all arme');
+                console.log('all arme')
         }
 
-        console.log(stateShootingsDf.dim())
         // Get number of shootings per race
         var perRaceShootings = (
             stateShootingsDf.groupBy('Ethnie')
