@@ -78,7 +78,7 @@
 
         </li>
         <li class="nav-item" id="button">
-          <a class="navbar-brand js-scroll-trigger" href="animatedLine.html">
+          <a class="navbar-brand js-scroll-trigger" href="#lines">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-graph-up" fill="currentColor"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -232,7 +232,7 @@
           </div>
           <div class="row row-header">
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ToutArme" value="all">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ToutArme" value="all" checked>
               <label class="form-check-label" for="inlineRadio1">Tout</label>
             </div>
             <div class="form-check form-check-inline">
@@ -240,7 +240,7 @@
               <label class="form-check-label" for="inlineRadio2">Armé</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nonArme" value="unarmed">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="NonArme" value="unarmed">
               <label class="form-check-label" for="inlineRadio3">Non armé </label>
             </div>
           </div>
@@ -249,7 +249,7 @@
           <!-- checkbox selectionneur -->
           <div class="row row-header">
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Toutage" value="all">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="ToutAge" value="all" checked>
               <label class="form-check-label" for="inlineRadio1">Tout</label>
             </div>
             <div class="form-check form-check-inline">
@@ -268,6 +268,18 @@
     </div>
   </div>
   <!-- carte -->
+  <!-- lignes animees -->
+  <div id="lignes">
+    <div class="row row-header">
+      <svg id="svglines"></svg>
+      </div>
+      <button type="button" class="btn btn-primary" id="resetButton">Relancer</button>
+    </div>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="scripts/charts/animatedLine.js"></script>
+  </div>
+  </div>
+  <!-- lignes animees -->
 
      <!-- Footer -->
   <footer id="footer" class="bg-black small text-center text-white-50">
