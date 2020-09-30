@@ -133,7 +133,7 @@ function getdifferenceRaces() {
 }
 
 function checkButton() {
-    if ((document.getElementById("arme0").checked === true) && (document.getElementById("nonArme0").checked === true)) {
+    if (document.getElementById("Toutarme0").checked === true){
         //exemple//
         armed = 0;
     } else if (document.getElementById("arme0").checked === true) {
@@ -145,7 +145,7 @@ function checkButton() {
     } else {
         armed = 0;
     };
-    if ((document.getElementById("fuiteY").checked === true) && (document.getElementById("fuiteN").checked === true)) {
+    if (document.getElementById("Toutfuite0").checked === true) {
         //exemple//
         fuite = 0;
     } else if (document.getElementById("fuiteY").checked === true) {
@@ -158,7 +158,7 @@ function checkButton() {
         fuite = 0;
     };
 
-    if ((document.getElementById("mineur0").checked === true) && (document.getElementById("majeur0").checked === true)) {
+    if (document.getElementById("Toutage0").checked === true) {
         //exemple//
         age = 0;
     } else if (document.getElementById("mineur0").checked === true) {
@@ -203,5 +203,5 @@ function updateData() {
 }
 
 
-const filtersIds = ['arme0', 'nonArme0', 'mineur0', 'majeur0', 'mentalY', 'mentalN', 'fuiteN', 'fuiteY']
+const filtersIds = ['Toutarme0','arme0', 'nonArme0', 'Toutage0', 'mineur0', 'majeur0', 'Toutmental0', 'mentalY', 'mentalN','Toutfuite0' ,'fuiteN', 'fuiteY']
 filtersIds.forEach(id => document.getElementById(id).addEventListener('click', updateData))
