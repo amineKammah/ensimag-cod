@@ -95,12 +95,16 @@ export default class DataProcessingUtils {
     }
 
     static getStateRaceRatio(stateName, ethnie) {
-        return race_df.filter(row => row.get('Etat') == stateName).select(ethnie).toArray()[0][0];
+        return DataProcessingUtils.getAllRacesRatios(stateName)[ethnie];
     }
 
     static getAllRacesRatios(stateName) {
         /* Get all the races ratios in a state */
-        return race_df.filter(row => row.get('Etat') == stateName).toCollection()[0];
+        const row =  race_df.filter(row => row.get('Etat') == stateName).toCollection()[0];
+        delete row["Etat"]
+        delete row["Code Etat"]
+        
+        return row;
     }
 
     static numberOfShootingsInState(stateName, age, armed) {
@@ -137,5 +141,50 @@ export default class DataProcessingUtils {
 
         const numberOfShootings = stateShootingsDf.dim()[0];
         return numberOfShootings;
+    }
+
+    static prepBarChartData(armed, age, fuite, ilness, nonIlness) {
+        /*
+        * Filter data based on multiple criteria
+        * Used to prepare data for the bar chart
+        */
+        var filteredDf = shootings_df;
+        switch (armed) {
+            case 1:
+                // armed
+                filteredDf = filteredDf.filter(row => row.get('Categorie arme') != 'Non Arme');
+                break;
+            case 2:
+                // unarmed
+                filteredDf = filteredDf.filter(row => row.get('Categorie arme') == 'Non Arme');
+                break;
+        };
+        switch (age) {
+            case 1:
+                // mineur
+                filteredDf = filteredDf.filter(row => row.get('Age') <= 18);
+                break;
+            case 2:
+                // majeur
+                filteredDf = filteredDf.filter(row => row.get('Age') >= 19);
+                break;
+        };
+        switch (fuite) {
+            case 1:
+                // fuite
+                filteredDf = filteredDf.filter(row => row.get('Fuite') != 'Pas de fuite');
+                break;
+            case 2:
+                // Not fleeing
+                filteredDf = filteredDf.filter(row => row.get('Fuite') == "Pas de fuite");
+                break;
+        };
+        if (ilness ^ nonIlness) 
+            if (ilness) 
+                filteredDf = filteredDf.filter(row => row.get('Signes de maladie mentale') == 1);
+            if (nonIlness) 
+                filteredDf = filteredDf.filter(row => row.get('Signes de maladie mentale') == 0);
+    
+        return filteredDf;
     }
 }

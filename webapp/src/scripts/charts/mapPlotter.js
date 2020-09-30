@@ -10,7 +10,7 @@ class MapPlotter {
     render() {
         MapPlotter.setUpFilteringButtons();
         MapPlotter.readFiltersValues();
-        
+
         MapPlotter.currentStateName = 'Texas';
         MapPlotter.drawRaceDoughnut();
 
@@ -53,7 +53,7 @@ class MapPlotter {
 
         if (document.getElementById("ToutAge").checked)
             MapPlotter.age = 0;
-        else if (document.getElementById("Mineur").checked) 
+        else if (document.getElementById("Mineur").checked)
             MapPlotter.age = 1;
         else if (document.getElementById("Majeur").checked)
             MapPlotter.age = 2;
@@ -65,15 +65,15 @@ class MapPlotter {
         * races present in the state on the right hand side of the map.
         */
 
-       if (MapPlotter.raceDoughnut) 
+        if (MapPlotter.raceDoughnut)
             // Destroys old doughnut before drawing a new one
             MapPlotter.raceDoughnut.destroy();
-    
+
         const [labels, data] = dataProcessingUtils.prepDoughnutData(
             MapPlotter.currentStateName, MapPlotter.age, MapPlotter.armed
         );
         const backgroundColor = MapPlotter.getBackgroundColors(labels);
-        
+
         const ctx = document.getElementById('raceRepartitionChart');
         MapPlotter.raceDoughnut = new Chart(ctx, {
             type: 'doughnut',
@@ -109,7 +109,7 @@ class MapPlotter {
 
     static updateMapColors() {
         MapPlotter.readFiltersValues();
-        
+
         MapPlotter.map.removeLayer(MapPlotter.geojson);
         MapPlotter.setupGeoJson(map);
     }
@@ -137,30 +137,30 @@ class MapPlotter {
     static highlightFeature(e) {
         /* Event Manager */
         var layer = e.target;
-    
+
         layer.setStyle({
             weight: 5,
             color: '#666',
             dashArray: '',
             fillOpacity: 0.7
         });
-    
+
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
             layer.bringToFront();
         }
         MapPlotter.info.update(layer.feature.properties);
     }
-        
+
     static resetHighlight(e) {
         MapPlotter.geojson.resetStyle(e.target);
     }
-    
+
     static zoomToFeature(e) {
         /* Event Manager */
         MapPlotter.currentStateName = e.target.feature.properties.name;
         MapPlotter.drawRaceDoughnut();
     }
-    
+
     static onEachFeature(feature, layer) {
         /* Event Manager */
         layer.on({
@@ -170,7 +170,7 @@ class MapPlotter {
         });
     }
 
-    static setupMapControl(){
+    static setupMapControl() {
         /* Setup event manager */
         var info = L.control();
         // creates Dom elements for the layer, add them to map panes
@@ -208,28 +208,28 @@ class MapPlotter {
     static setupLegend() {
         /* Add a legend to the map */
         var legend = L.control({ position: 'bottomright' });
-        
+
         legend.onAdd = function (map) {
-        
+
             var div = L.DomUtil.create('div', 'info legend'),
                 grades = [10, 20, 50, 100, 200, 350, 700],
                 labels = [],
                 from, to;
-        
+
             for (var i = 0; i < grades.length; i++) {
                 from = grades[i];
                 to = grades[i + 1];
-        
+
                 labels.push(
                     `<i style="background:${MapPlotter.getStateColor(from + 1)}"></i>
                     ${from} ${to ? '&ndash;' + to : '+'}`
                 )
             }
-        
+
             div.innerHTML = labels.join('<br>');
             return div;
         };
-        
+
         legend.addTo(MapPlotter.map);
     }
 
@@ -247,7 +247,7 @@ class MapPlotter {
         MapPlotter.setupMapControl();
         MapPlotter.setupGeoJson();
         MapPlotter.setupLegend();
-        
+
         MapPlotter.map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
     }
 }
