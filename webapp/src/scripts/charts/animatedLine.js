@@ -23,11 +23,10 @@ class AnimatedLines {
     });
 
     // Maps each race to a specific color
-    this.colors = {}
-    var colors_generator = d3.scaleOrdinal(d3.schemeCategory10);
-    this.labels.forEach(race => {
-      this.colors[race] = colors_generator(Math.random() * 50)
-    });
+    this.colors = {
+      "Blanc": "#024E82", "Noir": "#8F8F8F", "Hispanique": "#D55E00",
+      "Asiatique": "#000000", "Natif": "#56B4E9", "Autre": "#F0E442"
+  };
   }
 
   render() {
@@ -107,7 +106,7 @@ class AnimatedLines {
       .attr('width', width)
       .attr('class', 'curtain')
       .attr('transform', 'rotate(180)')
-      .style('fill', '#ffffff');
+      .style('fill', '#E9ECEF');
   
     /* Optionally add a guideline */
     var guideline = svg.append('line')
