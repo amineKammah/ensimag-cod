@@ -144,22 +144,22 @@ body {
      <h5> <b>Interface:</b></h5>
      <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp; Nous nous sommes fixés comme objectif de créer une interface interactive et assez intuitive afin de permettre une navigation fluide à l’utilisateur. En premier temps, l’utilisateur se retrouve dans une page d'accueil qui contient une description qui le met dans le contexte de notre page web. Il peut ensuite cliquer sur le bouton “Commencer” qui le mène directement dans la page de Statistiques générales où nous retrouvons un graphique qui met en avant pour chaque ethnie aux Etats-Unis la différence entre la proportion de sa démographie et du nombre de victimes qu’elle compte. L’utilisateur a le choix entre plusieurs filtres qui lui permettent de visualiser les données selon son choix.</p>
      <h5> <b>La carte:</b></h5>
-     <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp; Nous retrouvons dans cette partie une carte interactive des Etats-Unis qui permet, en cliquant sur un état donné, de visualiser la répartition des tirs par rapport aux ethnies dans un graphique en anneau. La coloration de chaque état est proportionnelle au nombre de tirs/morts. Nous retrouvons également dans cette section deux filtres : Mineurs/Majeurs et Armés/Non armés.</p
+     <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp;
+       Le rendu de la carte est fait à l'aide de l'API Leaflet. On y ajoute le fichier geojson des états géographiques
+       pour les mettre en avant. Cet API permet de spécifer des callbacks pour les actions de l'utilisateur sur la carte,qui permet en cliquant sur un état donné, de visualiser la répartition des tirs par rapport aux ethnies dans un graphique en anneau. La coloration de chaque état est proportionnelle au nombre de tirs/morts. Nous retrouvons également dans cette section deux filtres : Mineurs/Majeurs et Armés/Non armés.</p
        <h5> <b>Evolution temporelle:</b></h5>
        <p style="font-size:20px;" > &nbsp;&nbsp;&nbsp;Ce graphique nous permet de visualiser l'évolution temporelle du nombre de tirs en prenant en compte la démographie ethnique. Il reprend les valeurs mensuelles des nombres de tirs par ethnie de février 2015 à juin 2020.</p>
   <h4> <b>Technologies utilisées:</b></h4>
-  <h5> <b>Bibliothèques:</b></h5>
   <ul>
-<li style="font-size:20px;">d3.js, chart.js et leaflet.js pour tracer les graphes.</li>
-<li style="font-size:20px;">dataframe.js pour manipuler les données.</li>
-<li style="font-size:20px;">bootstrap pour le style.</li>
+<li style="font-size:20px;">Les graphes sont générés à l'aide des bibliothèques Chart.js et D3.js</li>
+<li style="font-size:20px;">Dataframe.js pour manipuler les données.</li>
+<li style="font-size:20px;">Bootstrap pour le style.</li>
+<li style="font-size:20px;" >Nous avons utilisé Javascript ES6 qui nous a permis de faire des import et d’utiliser des classes. Puis nous avons utilisé le bundler Parcel pour l’empaquetage final. <br><br><br><br></li>
 </ul>
-<h5> <b>Language:</b></h5>
-  <p style="font-size:20px;" >&nbsp;&nbsp;&nbsp;Nous avons utilisé Javascript ES6 qui nous a permis de faire des import et d’utiliser des classes. Puis nous avons utilisé le bundler Parcel pour l’empaquetage final. <br><br><br><br></p>
 
 
 </div>
-  
+
   <!-- Footer -->
   <footer id="footer" class="bg-black small text-center text-white-50">
 
