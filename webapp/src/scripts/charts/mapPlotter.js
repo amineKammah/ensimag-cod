@@ -1,6 +1,5 @@
-import { Map } from 'core-js';
 import dataProcessingUtils from '../dataTreatment/dataProcessingUtils';
-import statesData from '../dataTreatment/us-states';
+import statesGeoData from '../dataTreatment/us-states';
 
 class MapPlotter {
     /*
@@ -18,7 +17,7 @@ class MapPlotter {
         MapPlotter.drawMap();
     }
 
-    static getMapIntensity(numberOfShootings) {
+    static getStateColor(numberOfShootings) {
         /* Returns the corresponding color to the number of shootings */
         return numberOfShootings > 700 ? '#800026' :
             numberOfShootings > 350 ? '#BD0026' :
@@ -45,21 +44,19 @@ class MapPlotter {
     }
 
     static readFiltersValues() {
-        if (document.getElementById("ToutArme").checked === true) {
+        if (document.getElementById("ToutArme").checked)
             MapPlotter.armed = 0;
-        } else if (document.getElementById("Arme").checked === true) {
+        else if (document.getElementById("Arme").checked)
             MapPlotter.armed = 1;
-        } else if (document.getElementById("NonArme").checked === true) {
+        else if (document.getElementById("NonArme").checked)
             MapPlotter.armed = 2;
-        };
-        if (document.getElementById("ToutAge").checked === true) {
-            MapPlotter.age = 0;
-        } else if (document.getElementById("Mineur").checked === true) {
-            MapPlotter.age = 1;
-        } else if (document.getElementById("Majeur").checked === true) {
-            MapPlotter.age = 2;
-        };
 
+        if (document.getElementById("ToutAge").checked)
+            MapPlotter.age = 0;
+        else if (document.getElementById("Mineur").checked) 
+            MapPlotter.age = 1;
+        else if (document.getElementById("Majeur").checked)
+            MapPlotter.age = 2;
     }
 
     static drawRaceDoughnut() {
@@ -68,20 +65,16 @@ class MapPlotter {
         * races present in the state on the right hand side of the map.
         */
 
-        var ctx = document.getElementById('raceRepartitionChart');
-        if (ctx != "") {
-            document.getElementById('raceRepartitionChart').innerHTML = "";
-        }
-
-        const [labels, data] = dataProcessingUtils.prepDoughnutData(MapPlotter.currentStateName, MapPlotter.age, MapPlotter.armed);
-        const backgroundColor = MapPlotter.getBackgroundColors(labels);
-
-        if (MapPlotter.raceDoughnut) {
+       if (MapPlotter.raceDoughnut) 
             // Destroys old doughnut before drawing a new one
             MapPlotter.raceDoughnut.destroy();
-        }
-
-
+    
+        const [labels, data] = dataProcessingUtils.prepDoughnutData(
+            MapPlotter.currentStateName, MapPlotter.age, MapPlotter.armed
+        );
+        const backgroundColor = MapPlotter.getBackgroundColors(labels);
+        
+        const ctx = document.getElementById('raceRepartitionChart');
         MapPlotter.raceDoughnut = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -101,11 +94,13 @@ class MapPlotter {
     }
 
     static setUpFilteringButtons() {
+        /* Adds click event listeners for the filtering radio buttons */
         const filtersIds = ['ToutArme', 'Arme', 'NonArme', 'ToutAge', 'Mineur', 'Majeur'];
         filtersIds.forEach(id => document.getElementById(id).addEventListener('click', MapPlotter.updateMapDoughnut));
     }
 
     static updateMapDoughnut() {
+        /* Draws a new doughnut and update state colors*/
         MapPlotter.readFiltersValues();
 
         MapPlotter.drawRaceDoughnut();
@@ -124,7 +119,9 @@ class MapPlotter {
         var numberOfShootings = 0;
 
         if (feature.properties) {
-            numberOfShootings = dataProcessingUtils.numberOfShootingsInState(feature.properties.name, MapPlotter.age, MapPlotter.armed);
+            numberOfShootings = dataProcessingUtils.numberOfShootingsInState(
+                feature.properties.name, MapPlotter.age, MapPlotter.armed
+            );
         }
 
         return {
@@ -133,7 +130,7 @@ class MapPlotter {
             color: 'white',
             dashArray: '3',
             fillOpacity: 0.7,
-            fillColor: MapPlotter.getMapIntensity(numberOfShootings)
+            fillColor: MapPlotter.getStateColor(numberOfShootings)
         };
     }
 
@@ -199,7 +196,7 @@ class MapPlotter {
 
     static setupGeoJson() {
         /* Defines the geographic borders of the states */
-        var geojson = L.geoJson(statesData, {
+        var geojson = L.geoJson(statesGeoData, {
             style: MapPlotter.getStyle,
             onEachFeature: MapPlotter.onEachFeature
         });
@@ -224,7 +221,7 @@ class MapPlotter {
                 to = grades[i + 1];
         
                 labels.push(
-                    `<i style="background:${MapPlotter.getMapIntensity(from + 1)}"></i>
+                    `<i style="background:${MapPlotter.getStateColor(from + 1)}"></i>
                     ${from} ${to ? '&ndash;' + to : '+'}`
                 )
             }

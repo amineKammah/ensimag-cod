@@ -1,4 +1,3 @@
-// TODO: Import DataFrame from url instead of installing
 import DataFrame from 'dataframe-js'
 import { readFileSync } from 'fs';
 
