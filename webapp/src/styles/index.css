@@ -119,7 +119,12 @@ path.area {
 }
 
 #buttonCommencer{
-    background-color: #4CAF50;
+    background-color:   #ecf0f1  ;
     border: none;
-    color: white;
+    color:  #273746;
+}
+
+#checkboxes{
+     background-color:  white;
+     
 }
