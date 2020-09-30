@@ -1,11 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import { shootings_df, race_df } from '../dataTreatment/dataLoader';
 
+class BarChart {
+    /**
+        Draw a Bar chart with the differences between the pourcentage of the victime
+        population and the total population
+    **/
 
+
+}
 /** Global variables **/
 var races = new Map();
 var dataRaces;
@@ -49,7 +51,6 @@ window.onload = function () {
             scales: {
                 yAxes: [{
                     ticks: {
-
                         min: -40,
                         max: 40,
                         callback: function (value) { return value + "%" }
@@ -66,10 +67,7 @@ window.onload = function () {
 };
 
 
-/**
-  Draw a Bar chart with the differences between the pourcentage of the victime
-  population and the total population
-**/
+
 
 function prepareData() {
     var shootingFilter = shootings_df;
@@ -97,24 +95,18 @@ function prepareData() {
         case 1:
             // fuite
             shootingFilter = shootingFilter.filter(row => row.get('Fuite') != 'Pas de fuite');
-
             break;
         case 2:
             // Not fleeing
             shootingFilter = shootingFilter.filter(row => row.get('Fuite') == "Pas de fuite");
-
             break;
     };
-    if ((ilness ^ nonIlness)) {
-        if (ilness) {
+    if (ilness ^ nonIlness) 
+        if (ilness) 
             shootingFilter = shootingFilter.filter(row => row.get('Signes de maladie mentale') == 1);
-
-        }
-        if (nonIlness) {
+        if (nonIlness) 
             shootingFilter = shootingFilter.filter(row => row.get('Signes de maladie mentale') == 0);
-        }
 
-    }
     return shootingFilter;
 }
 
@@ -133,7 +125,7 @@ function getdifferenceRaces() {
 }
 
 function checkButton() {
-    if (document.getElementById("Toutarme0").checked === true){
+    if (document.getElementById("Toutarme0").checked === true) {
         //exemple//
         armed = 0;
     } else if (document.getElementById("arme0").checked === true) {
@@ -203,5 +195,5 @@ function updateData() {
 }
 
 
-const filtersIds = ['Toutarme0','arme0', 'nonArme0', 'Toutage0', 'mineur0', 'majeur0', 'Toutmental0', 'mentalY', 'mentalN','Toutfuite0' ,'fuiteN', 'fuiteY']
+const filtersIds = ['Toutarme0', 'arme0', 'nonArme0', 'Toutage0', 'mineur0', 'majeur0', 'Toutmental0', 'mentalY', 'mentalN', 'Toutfuite0', 'fuiteN', 'fuiteY']
 filtersIds.forEach(id => document.getElementById(id).addEventListener('click', updateData))

@@ -112,7 +112,8 @@
           Cette page vous donne accès à des visualisations interactives des données des tirs de la police americaine
           selon plusieurs facteurs (la race incluse), pendant les 5 dernieres années.
         </h4>
-        <a href="#statistiquesGenerales" type = "button" class="btn btn-primary js-scroll-trigger btn-lg" id="buttonCommencer">Commencer</a>
+        <a href="#statistiquesGenerales" type="button" class="btn btn-primary js-scroll-trigger btn-lg"
+          id="buttonCommencer">Commencer</a>
       </div>
 
 
@@ -120,145 +121,151 @@
 
   </header>
 
-    <!-- statistiques génerales -->
+  <!-- statistiques génerales -->
   <div id='statistiquesGenerales'>
-  <div class="jumbotron">
-  <h1 class="display-4 text-center">Statistiques génerales</h1>
-  <p class="lead">Les Blancs représentent en fait un pourcentage beaucoup plus faible
+    <div class="jumbotron">
+      <h1 class="display-4 text-center">Statistiques génerales</h1>
+      <p class="lead">Les Blancs représentent en fait un pourcentage beaucoup plus faible
         des victimes par rapport à l'ensemble de la population, la différence la plus
         élevé est celle des Noirs, qui représentent près de deux fois
         le pourcentage des victimes par rapport à l'ensemble de la population</p>
-  <hr class="my-4">
-                   
-            <div class="row border" id="checkboxes">
-                <!--La classe bg-info ajoute un fond bleu à l'élément-->
-                <div class="col">
-                    <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                <p>armé/non armé<p>
-                </div>
-                     <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                <div class="form-check ">
-                <input class="form-check-input" type="radio" name="armedOption" id="Toutarme0" value="armed" checked>
-                <label class="form-check-label" for="inlineRadio1">Tout</label>
-              </div>
-                </div>
-                     <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                <div class="form-check ">
-                <input class="form-check-input" type="radio" name="armedOption" id="arme0" value="armed">
-                <label class="form-check-label" for="inlineRadio1">Armés</label>
-              </div>
-                </div>
-                     <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-               <div class="form-check ">
-                <input class="form-check-input" type="radio" name="armedOption" id="nonArme0" value="unarmed">
-                <label class="form-check-label" for="inlineRadio1">Non armés</label>
-              </div>
-                </div>
-                </div>
-                <!--La classe bg-warning ajoute un fond jaune à l'élément-->
-                <div class="col ">
-                     <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                    <p>age<p>
-                </div>
-                    <div class="row">
-                         <div class="form-check ">
-                    <input class="form-check-input" type="radio" name="ageOption" id="Toutage0" value="armed" checked>
-                    <label class="form-check-label" for="inlineRadio1">Tout</label>
-                  </div>
-                    </div>
-                     <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                <div class="form-check ">
-                <input class="form-check-input" type="radio" name="ageOption" id="mineur0" value="armed">
-                <label class="form-check-label" for="inlineRadio1">Mineurs</label>
-                 </div>
-                </div>
-                <div class="row">
-               <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+      <hr class="my-4">
 
-               <div class="form-check ">
-                 <input class="form-check-input" type="radio" name="ageOption" id="majeur0" value="unarmed">
-                 <label class="form-check-label" for="inlineRadio1">Majeurs</label>
-                </div>
-                </div>
-                </div>
-                <!--La classe bg-success ajoute un fond vert à l'élément-->
-                <div class="col">
-                    <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                <p>Signes de maladie mentale:<p>
-                </div>
-                    
-                 <div class="row">
-                        <div class="form-check ">
-                   <input class="form-check-input" type="radio" name="mentalOption" id="Toutmental0" value="armed" checked>
-                   <label class="form-check-label" for="inlineRadio1">Tout</label>
-                 </div>
-                </div>
-                     <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                <div class="form-check ">
-                <input class="form-check-input" type="radio" name="mentalOption" id="mentalY" value="armed">
-                <label class="form-check-label" for="inlineRadio1">Oui</label>
-                </div>
-                </div>
-                     <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                <div class="form-check">
-                <input class="form-check-input" type="radio" name="mentalOption" id="mentalN" value="armed">
-                <label class="form-check-label" for="inlineRadio1">Non</label>
-              </div>
-                </div>
-                    
-                </div>
-                
-                 <div class="col">
-                    <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                <p> Fuite :<p>
-                </div>
-                      <div class="row ">
-                        <div class="form-check form-check-inline">
-                   <input class="form-check-input" type="radio" name="fuiteOption" id="Toutfuite0" value="armed" checked>
-                   <label class="form-check-label" for="inlineRadio1">Tout</label>
-                 </div>
-                </div>
-                     <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="fuiteOption" id="fuiteY" value="armed">
-                <label class="form-check-label" for="inlineRadio1">Oui</label>
-                </div>
-                </div>
-                     <div class="row">
-                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="fuiteOption" id="fuiteN" value="armed">
-                <label class="form-check-label" for="inlineRadio1">Non</label>
-              </div>
-                </div>
-                    
-                </div>
+      <div class="row border" id="checkboxes">
+        <!--La classe bg-info ajoute un fond bleu à l'élément-->
+        <div class="col">
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <p>armé/non armé
+            <p>
+          </div>
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <div class="form-check ">
+              <input class="form-check-input" type="radio" name="armedOption" id="Toutarme0" value="armed" checked>
+              <label class="form-check-label" for="inlineRadio1">Tout</label>
             </div>
-         <!-- checkbox selectionneur -->
-      
-        <div class="center-block">
+          </div>
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <div class="form-check ">
+              <input class="form-check-input" type="radio" name="armedOption" id="arme0" value="armed">
+              <label class="form-check-label" for="inlineRadio1">Armés</label>
+            </div>
+          </div>
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <div class="form-check ">
+              <input class="form-check-input" type="radio" name="armedOption" id="nonArme0" value="unarmed">
+              <label class="form-check-label" for="inlineRadio1">Non armés</label>
+            </div>
+          </div>
+        </div>
+        <!--La classe bg-warning ajoute un fond jaune à l'élément-->
+        <div class="col ">
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <p>age
+            <p>
+          </div>
+          <div class="row">
+            <div class="form-check ">
+              <input class="form-check-input" type="radio" name="ageOption" id="Toutage0" value="armed" checked>
+              <label class="form-check-label" for="inlineRadio1">Tout</label>
+            </div>
+          </div>
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <div class="form-check ">
+              <input class="form-check-input" type="radio" name="ageOption" id="mineur0" value="armed">
+              <label class="form-check-label" for="inlineRadio1">Mineurs</label>
+            </div>
+          </div>
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+
+            <div class="form-check ">
+              <input class="form-check-input" type="radio" name="ageOption" id="majeur0" value="unarmed">
+              <label class="form-check-label" for="inlineRadio1">Majeurs</label>
+            </div>
+          </div>
+        </div>
+        <!--La classe bg-success ajoute un fond vert à l'élément-->
+        <div class="col">
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <p>Signes de maladie mentale:
+            <p>
+          </div>
+
+          <div class="row">
+            <div class="form-check ">
+              <input class="form-check-input" type="radio" name="mentalOption" id="Toutmental0" value="armed" checked>
+              <label class="form-check-label" for="inlineRadio1">Tout</label>
+            </div>
+          </div>
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <div class="form-check ">
+              <input class="form-check-input" type="radio" name="mentalOption" id="mentalY" value="armed">
+              <label class="form-check-label" for="inlineRadio1">Oui</label>
+            </div>
+          </div>
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="mentalOption" id="mentalN" value="armed">
+              <label class="form-check-label" for="inlineRadio1">Non</label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col">
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <p> Fuite :
+            <p>
+          </div>
+          <div class="row ">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="fuiteOption" id="Toutfuite0" value="armed" checked>
+              <label class="form-check-label" for="inlineRadio1">Tout</label>
+            </div>
+          </div>
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="fuiteOption" id="fuiteY" value="armed">
+              <label class="form-check-label" for="inlineRadio1">Oui</label>
+            </div>
+          </div>
+          <div class="row">
+            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="fuiteOption" id="fuiteN" value="armed">
+              <label class="form-check-label" for="inlineRadio1">Non</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- checkbox selectionneur -->
+
+      <div class="center-block">
+        <div class="mx-auto" style="width:70%;height:60%;">
           <canvas id="barChart"></canvas>
         </div>
-</div>
-</div>
+      </div>
+    </div>
+  </div>
 
 
   <!--carte -->
   <div id="carte">
     <div class="jumbotron jumbotron-fluid">
       <div class="mx-auto text-center">
-        <h2 class="mx-auto my-0 text-uppercase">Carte des États-Unis</h2>
+        <h2 class="mx-auto my-0 ">Carte des États-Unis</h2>
         <p>En cliquant sur un état, vous pouvez visualiser le pourcentage du
           nombre de victimes pour chaque race dans cet état. La répartition prend
           en compte le pourcentage de la race dans le pays.
@@ -266,7 +273,7 @@
         <br>
         <br><br>
         <div class="row row-header">
-          <div id="map" class="col order-first offset-md-1" ></div>
+          <div id="map" class="col order-first offset-md-1"></div>
           <div id="chart" class="col-5">
             <canvas class="rounded" id="raceRepartitionChart"></canvas>
           </div>
@@ -274,63 +281,69 @@
         <div class="container">
           <!-- checkbox selectionneur -->
         </div>
-          <div class="row row-header">
-            Vous pouvez choisir des filtres pour observer comment les données
-            changent selon l'âge et le port d'arme:
+        <div class="row row-header">
+          Vous pouvez choisir des filtres pour observer comment les données
+          changent selon l'âge et le port d'arme:
+        </div>
+        <div class="row row-header">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ToutArme" value="all" checked>
+            <label class="form-check-label" for="inlineRadio1">Tout</label>
           </div>
-          <div class="row row-header">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ToutArme" value="all" checked>
-              <label class="form-check-label" for="inlineRadio1">Tout</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Arme" value="armed">
-              <label class="form-check-label" for="inlineRadio2">Armé</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="NonArme" value="unarmed">
-              <label class="form-check-label" for="inlineRadio3">Non armé </label>
-            </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Arme" value="armed">
+            <label class="form-check-label" for="inlineRadio2">Armé</label>
           </div>
-          <!-- checkbox selectionneur -->
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="NonArme" value="unarmed">
+            <label class="form-check-label" for="inlineRadio3">Non armé </label>
+          </div>
+        </div>
+        <!-- checkbox selectionneur -->
 
-          <!-- checkbox selectionneur -->
-          <div class="row row-header">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="ToutAge" value="all" checked>
-              <label class="form-check-label" for="inlineRadio1">Tout</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Mineur" value="armed">
-              <label class="form-check-label" for="inlineRadio2">Mineur</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Majeur" value="unarmed">
-              <label class="form-check-label" for="inlineRadio3">Majeur </label>
-            </div>
+        <!-- checkbox selectionneur -->
+        <div class="row row-header">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="ToutAge" value="all" checked>
+            <label class="form-check-label" for="inlineRadio1">Tout</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Mineur" value="armed">
+            <label class="form-check-label" for="inlineRadio2">Mineur</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Majeur" value="unarmed">
+            <label class="form-check-label" for="inlineRadio3">Majeur </label>
           </div>
         </div>
       </div>
-      <!-- checkbox selectionneur -->
-
     </div>
+    <!-- checkbox selectionneur -->
+
   </div>
   <!-- carte -->
   <!-- lignes animees -->
   <div id="lignes" class="jumbotron jumbotron-fluid">
+    <div class="mx-auto text-center">
+      <h2 class="mx-auto my-0">Evolution du nombre de tirs/morts pour chaque race au fil des cinq dernieres annees</h2>
+    </div>
     <div class="row row-header">
-      <svg id="svglines"></svg>
+      <div class="mx-auto d-block">
+        <svg id="svglines"></svg>
       </div>
-      <button type="button" class="btn btn-primary" id="resetButton">Relancer</button>
+    </div>
+    <div class="row row-header">
+      <div class="mx-auto d-block">
+        <button type="button" class="btn btn-outline-dark" id="resetButton">Relancer</button>
+      </div>
     </div>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="scripts/charts/animatedLine.js"></script>
   </div>
-  </div>
   <!-- lignes animees -->
 
- 
-     <!-- Footer -->
+
+  <!-- Footer -->
   <footer id="footer" class="bg-black small text-center text-white-50">
 
     <!-- Copyright -->
