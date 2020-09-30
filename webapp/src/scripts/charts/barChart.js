@@ -29,8 +29,8 @@ function byDefault() {
         labels: Array.from(dataRaces.keys()),
         datasets: [{
             label: 'Percentage',
-            backgroundColor: '#95a5a6',
-            borderColor: "#5f6a6a",
+            backgroundColor: '#EC7063',
+            borderColor: "#EC7063",
             borderWidth: 1,
             data: Array.from(dataRaces.values())
         }]
@@ -46,7 +46,7 @@ window.onload = function () {
         options: {
             title: {
                 display: true,
-                text: "Différence entre la proportion de chaque ethnie et le nombre de victimes qu'elle compte"
+                text: "Différence entre la proportion de chaque ethnie et du nombre de victimes qu'elle compte"
             },
             scales: {
                 yAxes: [{
@@ -183,8 +183,8 @@ function updateData() {
         labels: Array.from(dataRaces.keys()),
         datasets: [{
             label: 'Percentage',
-            backgroundColor: '#95a5a6',
-            borderColor: "#5f6a6a",
+            backgroundColor: '#EC7063',
+            borderColor: "#EC7063",
             borderWidth: 1,
             data: Array.from(dataRaces.values())
         }]

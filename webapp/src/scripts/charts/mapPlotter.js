@@ -183,10 +183,10 @@ class MapPlotter {
         info.update = function (props) {
             const stateName = (props ? props.name : "Texas");
 
-            const numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName)
+            const numberOfShootings = dataProcessingUtils.numberOfShootingsInState(stateName, MapPlotter.age, MapPlotter.armed)
 
-            const info = props ? `<b>${stateName}</b><br />${numberOfShootings} morts` : 'survoler sur un état'
-            this._div.innerHTML = '<h4> Le nombre du mort </h4>' + info
+            const info = props ? `<b>${stateName}</b><br />${numberOfShootings}  tirs / morts` : 'survoler sur un état'
+            this._div.innerHTML = '<h4> Le nombre de tirs / morts </h4>' + info
         };
 
         info.addTo(MapPlotter.map);

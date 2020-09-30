@@ -84,7 +84,7 @@
                             <path fill-rule="evenodd"
                                   d="M0 0h1v15h15v1H0V0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5z" />
                             </svg>
-                            <small class="text-muted">Ligne animée</small>
+                            <small class="text-muted">Évolution temporelle</small>
                         </a>
                     </li>
                     <li class="nav-item" id="button">
@@ -110,7 +110,7 @@
                     <h4 class="text-white-50 mx-auto mt-2 mb-5">
                         Après la mort de George Floyd, les États-Unis ont connu plusieurs manifestations au sujet du racisme.
                         Cette page vous donne accès à des visualisations interactives des données des tirs de la police américaine
-                        selon plusieurs facteurs (la race incluse), pendant les 5 dernieres années.
+                        selon plusieurs facteurs (dont l'ethnie), pendant les 5 dernieres années.
                     </h4>
                     <a href="#statistiquesGenerales" type="button" class="btn btn-primary js-scroll-trigger btn-lg"
                        id="buttonCommencer">Commencer</a>
@@ -125,47 +125,46 @@
         <div id='statistiquesGenerales'>
 
             <div class="jumbotron">
-                <h1 class="display-4 text-center">Statistiques génerales</h1>
-                <p class="lead">Ce graphique met en avant pour chaque ethnie la différence entre la proportion
-                  de sa démographie et du nombre de mort qu'elle compte</p>
+                <h1 class="display-4 text-center">Statistiques générales</h1>
+                <p class="lead text-center">Ce graphique met en avant pour chaque ethnie la différence entre la proportion
+                    de sa démographie et du nombre de mort qu'elle compte.</p>
                 <hr class="my-4">
-                <p class="lead text-center"> Il est possible de choisir des filtres pour visionner les données
-                          selon l'âge, le port d'armes, les signes de maladie mentale et la fuite: </p>
-
                 <div class="row border" id="checkboxes">
                     <!--La classe bg-info ajoute un fond bleu à l'élément-->
-                    <div class="col">
-                        <div class="row">
-                            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                            <p>armé/non armé<p>
-                        </div>
-                        <div class="row">
-                            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                            <div class="form-check ">
-                                <input class="form-check-input" type="radio" name="armedOption" id="Toutarme0" value="armed" checked>
-                                <label class="form-check-label" for="inlineRadio1">Tout</label>
+                    <div class="col offset-2">
+                        <div class="justify-content-center align-items-center">
+                            <div class="row">
+                                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+                                <p>Armés/Non armés:<p>
                             </div>
-                        </div>
-                        <div class="row">
-                            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                            <div class="form-check ">
-                                <input class="form-check-input" type="radio" name="armedOption" id="arme0" value="armed">
-                                <label class="form-check-label" for="inlineRadio1">Armés</label>
+                            <div class="row">
+                                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+                                <div class="form-check ">
+                                    <input class="form-check-input" type="radio" name="armedOption" id="Toutarme0" value="armed" checked>
+                                    <label class="form-check-label" for="inlineRadio1">Tout</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                            <div class="form-check ">
-                                <input class="form-check-input" type="radio" name="armedOption" id="nonArme0" value="unarmed">
-                                <label class="form-check-label" for="inlineRadio1">Non armés</label>
+                            <div class="row">
+                                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+                                <div class="form-check ">
+                                    <input class="form-check-input" type="radio" name="armedOption" id="arme0" value="armed">
+                                    <label class="form-check-label" for="inlineRadio1">Armés</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!--La classe bg-danger ajoute un fond rouge à l'élément-->
+                                <div class="form-check ">
+                                    <input class="form-check-input" type="radio" name="armedOption" id="nonArme0" value="unarmed">
+                                    <label class="form-check-label" for="inlineRadio1">Non armés</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!--La classe bg-warning ajoute un fond jaune à l'élément-->
-                    <div class="col ">
+                    <div class="col center-block">
                         <div class="row">
                             <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                            <p>age<p>
+                            <p>Âge:<p>
                         </div>
                         <div class="row">
                             <div class="form-check ">
@@ -190,7 +189,7 @@
                         </div>
                     </div>
                     <!--La classe bg-success ajoute un fond vert à l'élément-->
-                    <div class="col">
+                    <div class="col center-block">
                         <div class="row">
                             <!--La classe bg-danger ajoute un fond rouge à l'élément-->
                             <p>Signes de maladie mentale:<p>
@@ -219,10 +218,10 @@
 
                     </div>
 
-                    <div class="col">
+                    <div class="col center-block">
                         <div class="row">
                             <!--La classe bg-danger ajoute un fond rouge à l'élément-->
-                            <p> Fuite :<p>
+                            <p> Fuite:<p>
                         </div>
                         <div class="row ">
                             <div class="form-check form-check-inline">
@@ -247,24 +246,19 @@
 
                     </div>
                 </div>
+                <br><br>
                 <div class="center-block">
-                <div class="mx-auto" style="width:70%;height:60%;">
-                    <canvas id="barChart"></canvas>
-                </div>
-
-                <div class="lead mx-auto text-center">
-                    <p>On remarque que les afro-américains ont un pourcentage nettement plus grand
-                      peu importe le filtre choisi. Tandis que les blancs ont un résultat
-                      négatif à chaque fois. D'autant plus que si on filtre sur les mineurs ou les
-                      non armés le nombre de victimes afro-américaines croît de manière significative.</p>
-
+                    <div class="mx-auto" style="width:70%;height:60%;">
+                        <canvas id="barChart"></canvas>
+                    </div>
                 </div>
             </div>
-            </div>
-
         </div>
-    </div>
-    <!-- checkbox selectionneur -->
+
+
+
+
+<!-- checkbox selectionneur -->
 
 
 </div>
@@ -276,18 +270,16 @@
         <div class="mx-auto text-center">
             <h1 class="display-4 text-center">Carte des États-Unis</h1>
             <p class="lead">Cette carte représente le nombre de tirs/morts dans chaque état.
-              En cliquant sur un état, vous pouvez visualiser le pourcentage du
-              nombre de victimes pour chaque race dans un graphique
-              en anneau. La répartition prend en compte le pourcentage de la race
-              dans le pays</p>
+                En cliquant sur un état, vous pouvez visualiser le pourcentage du
+                nombre de victimes pour chaque ethnie dans le graphique
+                en anneau. La répartition prend en compte la proportion de l'ethnie
+                dans l'état.</p>
             <hr class="my-4">
-            <p class="lead">Vous pouvez choisir des filtres pour observer comment les données
-            changent selon l'âge et le port d'arme</p>
             <div class="row border" id="checkboxes">
                 <!--La classe bg-info ajoute un fond bleu à l'élément-->
-                <div class="col">
+                <div class="col center-block offset-3">
                     <div class="row">
-                        armé/non armé
+                        Armés/Non armés:
                     </div>
                     <div class="row">
                         <div class="form-check form-check-inline">
@@ -310,9 +302,9 @@
                     </div>
                 </div>
 
-                <div class="col">
+                <div class="col center-block">
                     <div class="row">
-                        Age :
+                        Âge:
                     </div>
                     <div class="row">
                         <div class="form-check form-check-inline">
@@ -323,25 +315,25 @@
                     <div class="row">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Mineur" value="armed">
-                            <label class="form-check-label" for="inlineRadio2">Mineur</label>
+                            <label class="form-check-label" for="inlineRadio2">Mineurs</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Majeur" value="unarmed">
-                            <label class="form-check-label" for="inlineRadio3">Majeur </label>
+                            <label class="form-check-label" for="inlineRadio3">Majeurs</label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <br><br>
-    <div class="row row-header">
-        <div id="map" class="col-12 col-sm-6  order-first"></div>
-        <div id="chart" class="col-12 col-sm-6">
-            <canvas id="raceRepartitionChart"></canvas>
+        <div class="row row-header">
+            <div id="map" class="col-12 col-sm-6  order-first offset-1"></div>
+            <div id="chart" class="col-12 col-sm-5">
+                <canvas id="raceRepartitionChart"></canvas>
+            </div>
         </div>
-    </div>
     </div>
     <!-- checkbox selectionneur -->
 
@@ -353,7 +345,8 @@
 <!-- lignes animees -->
 <div id="lignes" class="jumbotron">
     <div class="mx-auto text-center">
-        <h1 class="lead">Évolution du nombre de tirs/morts pour chaque ethnie au fil des cinq dernières années</h1>
+        <h1 class="display-4 text-center">Évolution temporelle</h1>
+        <h1 class="lead">Évolution mensuelle du nombre de tirs/morts proportionnelle à la démographie pour chaque ethnie au fil des cinq dernières années.</h1>
     </div>
     <div class="row row-header">
         <div class="mx-auto d-block">
@@ -366,12 +359,13 @@
         </div>
 
     </div>
-    <button type="button" class="btn btn-primary" id="resetButton">Relancer</button>
+
 </div>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="scripts/charts/animatedLine.js"></script>
 </div>
 <!-- lignes animees -->
+
 
 <!-- Footer -->
 <footer id="footer" class="bg-black small text-center text-white-50">
