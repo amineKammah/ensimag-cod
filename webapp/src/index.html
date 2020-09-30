@@ -109,7 +109,7 @@
         <h1 class="mx-auto my-0 text-uppercase">Tirs de la police américaine</h1>
         <h4 class="text-white-50 mx-auto mt-2 mb-5">
           Après la mort de George Floyd, les États-Unis ont connu plusieurs manifestations au sujet du racisme.
-          Cette page vous donne accès à des visualisations interactives des données des tirs de la police americaine
+          Cette page vous donne accès à des visualisations interactives des données des tirs de la police américaine
           selon plusieurs facteurs (la race incluse), pendant les 5 dernieres années.
         </h4>
         <a href="#statistiquesGenerales" class="btn btn-primary js-scroll-trigger">Commencer</a>
@@ -126,14 +126,13 @@
   <div class="jumbotron jumbotron-fluid">
     <div class="mx-auto text-center">
       <h2 class="mx-auto my-0 text-uppercase">Statistiques génerales</h2>
-      <p>Les Blancs représentent en fait un pourcentage beaucoup plus faible
-        des victimes par rapport à l'ensemble de la population, le delta le plus
-        élevé est celui des Noirs, qui représentent près de deux fois
-        le pourcentage des victimes par rapport à l'ensemble de la population</p>
+      <p>Ce graphique représente la différence entre le pourcentage du nombre de
+        victimes d'une race et le pourcentage de la race dans la population totale des États-Unis.</p>
       <br>
       <!-- checkbox selectionneur -->
+      Il est possible de choisir des filtres pour visionner les données
+      selon l'âge, le port d'armes, les signes de maladie mentale et la fuite:
       <div class="container text-center">
-
         <div class="row row-header">
           <!-- Default checked -->
           <div class="form-check form-check-inline">
@@ -201,9 +200,15 @@
           <canvas id="barChart"></canvas>
         </div>
       </div>
-    </div>
 
-  </div>
+      <div class="mx-auto text-center">
+        <p>On remarque que les Noirs ont un pourcentage nettement plus grand
+          peu importe le filtre choisi. Tandis que les Blancs ont un résultat
+          négatif à chaque fois. Cela affirme que la race fait bien la différence.</p>
+
+      </div>
+
+    </div>
   </div>
   <!-- statistiques génerales -->
 
@@ -212,18 +217,12 @@
     <div class="jumbotron jumbotron-fluid">
       <div class="mx-auto text-center">
         <h2 class="mx-auto my-0 text-uppercase">Carte des États-Unis</h2>
-        <p>En cliquant sur un état, vous pouvez visualiser le pourcentage du
-          nombre de victimes pour chaque race dans cet état. La répartition prend
-          en compte le pourcentage de la race dans le pays.
-        </p>
+        <p>Cette carte représente le nombre de tirs/morts dans chaque état.
+          En cliquant sur un état, vous pouvez visualiser le pourcentage du
+          nombre de victimes pour chaque race dans un graphique
+          en anneau. La répartition prend en compte le pourcentage de la race
+          dans le pays.</p>
         <br>
-        <br><br>
-        <div class="row row-header">
-          <div id="map" class="col-12 col-sm-6  order-first"></div>
-          <div id="chart" class="col-12 col-sm-6">
-            <canvas id="raceRepartitionChart"></canvas>
-          </div>
-        </div>
         <div class="container">
           <!-- checkbox selectionneur -->
           <div class="row row-header">
@@ -264,6 +263,14 @@
         </div>
       </div>
       <!-- checkbox selectionneur -->
+      <br><br>
+      <div class="row row-header">
+        <div id="map" class="col-12 col-sm-6  order-first"></div>
+        <div id="chart" class="col-12 col-sm-6">
+          <canvas id="raceRepartitionChart"></canvas>
+        </div>
+      </div>
+
 
     </div>
   </div>
@@ -272,16 +279,16 @@
   <div id="lignes">
     <div class="row row-header">
       <svg id="svglines"></svg>
-      </div>
-      <button type="button" class="btn btn-primary" id="resetButton">Relancer</button>
     </div>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="scripts/charts/animatedLine.js"></script>
+    <button type="button" class="btn btn-primary" id="resetButton">Relancer</button>
+  </div>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="scripts/charts/animatedLine.js"></script>
   </div>
   </div>
   <!-- lignes animees -->
 
-     <!-- Footer -->
+  <!-- Footer -->
   <footer id="footer" class="bg-black small text-center text-white-50">
 
     <!-- Copyright -->
