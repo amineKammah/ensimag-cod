@@ -127,8 +127,9 @@
   <p class="lead">Ce graphique représente la différence entre le pourcentage du nombre de
     victimes d'une race et le pourcentage de la race dans la population totale des États-Unis.</p>
   <hr class="my-4">
-            Il est possible de choisir des filtres pour visionner les données
-            selon l'âge, le port d'armes, les signes de maladie mentale et la fuite:  
+  <p class="lead text-center"> Il est possible de choisir des filtres pour visionner les données
+            selon l'âge, le port d'armes, les signes de maladie mentale et la fuite: </p>
+            
             <div class="row border" id="checkboxes">
                 <!--La classe bg-info ajoute un fond bleu à l'élément-->
                 <div class="col">
@@ -250,7 +251,7 @@
           <canvas id="barChart"></canvas>
         </div>
 
-        <div class="mx-auto text-center">
+        <div class="lead mx-auto text-center">
           <p>On remarque que les Noirs ont un pourcentage nettement plus grand
             peu importe le filtre choisi. Tandis que les Blancs ont un résultat
             négatif à chaque fois. Cela affirme que la race fait bien la différence.</p>
@@ -262,54 +263,68 @@
 
   <!--carte -->
   <div id="carte">
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron">
       <div class="mx-auto text-center">
-        <h2 class="mx-auto my-0 text-uppercase">Carte des États-Unis</h2>
-        <p>Cette carte représente le nombre de tirs/morts dans chaque état.
-          En cliquant sur un état, vous pouvez visualiser le pourcentage du
-          nombre de victimes pour chaque race dans un graphique
-          en anneau. La répartition prend en compte le pourcentage de la race
-          dans le pays.</p>
-        <br>
-        <br>
-        <div class="container">
-          <!-- checkbox selectionneur -->
+        <h1 class="display-4 text-center">Carte des États-Unis</h1>
+        <p class="lead">Cette carte représente le nombre de tirs/morts dans chaque état.
+                En cliquant sur un état, vous pouvez visualiser le pourcentage du
+                nombre de victimes pour chaque race dans un graphique
+                en anneau. La répartition prend en compte le pourcentage de la race
+                dans le pays</p>
+        <hr class="my-4">
+        <p class="lead">Vous pouvez choisir des filtres pour observer comment les données
+            changent selon l'âge et le port d'arme</p>
+        <div class="row border" id="checkboxes">
+                <!--La classe bg-info ajoute un fond bleu à l'élément-->
+                <div class="col">
+                    <div class="row">
+                        armé/non armé
+                    </div>
+                    <div class="row">
+                        <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineOption" id="ToutArme" value="all" checked>
+                    <label class="form-check-label" for="inlineRadio1">Tout</label>
+                    </div>
+                    </div>
+                    <div class="row">
+                         <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineOption" id="Arme" value="armed">
+                        <label class="form-check-label" for="inlineRadio2">Armés</label>
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="radio" name="inlineOption" id="NonArme" value="unarmed">
+                     <label class="form-check-label" for="inlineRadio3">Non armés</label>
+                   </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="row">
+                        Age : 
+                    </div>
+                    <div class="row">
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="ToutAge" value="all" checked>
+                        <label class="form-check-label" for="inlineRadio1">Tout</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Mineur" value="armed">
+                        <label class="form-check-label" for="inlineRadio2">Mineur</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                         <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Majeur" value="unarmed">
+                        <label class="form-check-label" for="inlineRadio3">Majeur </label>
+                      </div>
+                    </div>
+                </div>
         </div>
-          <div class="row row-header">
-            Vous pouvez choisir des filtres pour observer comment les données
-            changent selon l'âge et le port d'arme:
-          </div>
-          <div class="row row-header">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ToutArme" value="all" checked>
-              <label class="form-check-label" for="inlineRadio1">Tout</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Arme" value="armed">
-              <label class="form-check-label" for="inlineRadio2">Armés</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="NonArme" value="unarmed">
-              <label class="form-check-label" for="inlineRadio3">Non armés</label>
-            </div>
-          </div>
-          <!-- checkbox selectionneur -->
-
-          <!-- checkbox selectionneur -->
-          <div class="row row-header">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="ToutAge" value="all" checked>
-              <label class="form-check-label" for="inlineRadio1">Tout</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Mineur" value="armed">
-              <label class="form-check-label" for="inlineRadio2">Mineur</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="Majeur" value="unarmed">
-              <label class="form-check-label" for="inlineRadio3">Majeur </label>
-            </div>
-          </div>
         </div>
       </div>
       <!-- checkbox selectionneur -->
@@ -320,8 +335,6 @@
           <canvas id="raceRepartitionChart"></canvas>
         </div>
       </div>
-
-
     </div>
   </div>
   <!-- carte -->
