@@ -1,5 +1,4 @@
 /webapp/node_modules/
-/webapp/dist/
 /webapp/.cache/
 
 preprocessing/.Rhistory
